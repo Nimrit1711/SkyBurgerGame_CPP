@@ -26,7 +26,7 @@ void Player::handleInput(RenderWindow& window) {
     sprite.setPosition(position);
 }
 
-void Player::update(float deltaTime) {
+void Player::update(float deltaTime, RenderWindow& window) {
     position.x += velocityX;
     sprite.setPosition(position);
 }

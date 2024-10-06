@@ -22,7 +22,7 @@ private:
 public:
     Player(Burger* burger);
     void handleInput(RenderWindow& window);
-    void update(float deltaTime);
+    void update(float deltaTime, RenderWindow& window);
     void render(RenderWindow& window);
     FloatRect getPlayerBounds() const;
     void loseLife();

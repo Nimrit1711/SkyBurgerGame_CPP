@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Burger.h"
 #include "Lettuce.h"
+#include "Tomato.h"
 using namespace sf;
 using namespace std;
 
@@ -18,8 +19,11 @@ int main() {
     
     Player player(&burger);
 
+      vector<unique_ptr<FallingObjects>> foodItems;
+      foodItems.push_back(make_unique<Lettuce>());
+      foodItems.push_back(make_unique<Lettuce>());
+
     
-    unique_ptr<FallingObjects> foodItem = make_unique<Lettuce>();
 
     
     Clock clock;
@@ -37,17 +41,23 @@ int main() {
         player.handleInput(window);
 
         // Update the player and food item
-        player.update(deltaTime);
-        foodItem->update(deltaTime);
+       
+        player.update(deltaTime, window);
+        for (auto& foodItem : foodItems) {
+            foodItem->update(deltaTime);
+            foodItem->checkCollision(player, burger);  // Check for collision with each food item
+        }
 
         
-        foodItem->checkCollision(player, burger);
+       
         
         // Render graphics
         window.clear(Color(135,206, 235));
         
         burger.render(window, player.getPlayerPosition()); 
-        foodItem->render(window); 
+        for (auto& foodItem : foodItems) {
+            foodItem->render(window);
+        } 
         player.render(window); 
 
     

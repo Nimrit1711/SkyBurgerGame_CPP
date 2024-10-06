@@ -28,3 +28,8 @@ void FoodItem::checkCollision(Player& player, Burger& burger) {
 FloatRect FoodItem::getGlobalBounds() const {
     return sprite.getGlobalBounds();
 }
+
+
+void FoodItem::setPosition(const Vector2f& pos) {
+    sprite.setPosition(pos);
+}

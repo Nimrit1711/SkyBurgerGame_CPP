@@ -16,7 +16,7 @@ protected:
 
 public:
     FoodItem(const string& textureFile, int points, float speed);
-    
+    virtual void setPosition(const Vector2f& pos) override; 
     virtual void update(float deltaTime) override;
     virtual void render(RenderWindow& window) override;
     virtual void checkCollision(Player& player, Burger& burger) override;
