@@ -46,7 +46,7 @@ int main(){
         }
 
         
-                
+        // check if player goes out of bounds         
         bunPosition.x += xVelocity;
 
         if (bunPosition.x < -burgerPlayer.getSize().x) {
