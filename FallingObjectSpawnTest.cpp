@@ -75,12 +75,19 @@ int main() {
             fallingItems.push_back(move(newFoodItem));
         }
 
-        // Updates the falling items
-        for (auto& item : fallingItems) {
-            item->update(deltaTime);
-            item->checkCollision(player, burger);
-        }
+       
+        // Update falling items and check for collisions
+        for (auto it = fallingItems.begin(); it != fallingItems.end(); ) {
+        (*it)->update(deltaTime);
+        (*it)->checkCollision(player, burger);
 
+        // Remove food item if caught
+        if (dynamic_cast<FoodItem*>(it->get())->getIsCaught()) {
+            it = fallingItems.erase(it);
+        } else {
+            ++it;
+        }
+        }
         
         window.clear(Color(135, 206, 235));
 
@@ -90,7 +97,6 @@ int main() {
         }
 
         player.render(window); 
-        
         burger.render(window, player.getPlayerPosition()); 
         window.display();
     }

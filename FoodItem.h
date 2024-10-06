@@ -26,6 +26,8 @@ public:
     Vector2f getPosition() const;
     bool getIsCaught() const;
     void setIsCaught(bool added);
+    virtual unique_ptr<FoodItem> create() const = 0;
+    
 
 };
 
