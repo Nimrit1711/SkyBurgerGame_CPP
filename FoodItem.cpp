@@ -3,8 +3,9 @@
 #include "Burger.h"
 
 
+
 FoodItem::FoodItem(const string& textureFile, int points, float speed)
-    : pointValue(points), fallSpeed(speed) {
+    : pointValue(points), fallSpeed(speed), isCaught(false) {
     foodTexture.loadFromFile(textureFile);
     sprite.setTexture(foodTexture);
     sprite.setScale(0.5f, 0.5f);
@@ -19,10 +20,30 @@ void FoodItem::render(RenderWindow& window) {
 }
 
 void FoodItem::checkCollision(Player& player, Burger& burger) {
-    if (player.getPlayerBounds().intersects(getGlobalBounds())) {
+     if (getIsCaught()) {
+        return; //skips if added to the burger pile
+    }
+    Vector2f playerPosition=player.getPlayerPosition();
+    Vector2f topOfStack = burger.getTopOfStack(playerPosition);
+    FloatRect foodBounds = getGlobalBounds();
+
+    if (foodBounds.intersects(FloatRect(topOfStack.x, topOfStack.y, foodBounds.width, foodBounds.height))) {
         // Add the current FoodItem to the burger
         burger.addIngredient(make_unique<FoodItem>(*this));
-    }
+        setIsCaught(true);
+        fallSpeed = 0.0f;
+    }       
+}
+
+
+
+
+bool FoodItem::getIsCaught() const {
+    return isCaught;
+}
+
+void FoodItem::setIsCaught(bool added) {
+    isCaught= added;
 }
 
 FloatRect FoodItem::getGlobalBounds() const {
@@ -32,4 +53,8 @@ FloatRect FoodItem::getGlobalBounds() const {
 
 void FoodItem::setPosition(const Vector2f& pos) {
     sprite.setPosition(pos);
+}
+
+Vector2f FoodItem:: getPosition() const{
+    return sprite.getPosition();
 }

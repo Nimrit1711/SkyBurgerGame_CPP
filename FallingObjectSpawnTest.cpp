@@ -90,6 +90,7 @@ int main() {
         }
 
         player.render(window); 
+        
         burger.render(window, player.getPlayerPosition()); 
         window.display();
     }

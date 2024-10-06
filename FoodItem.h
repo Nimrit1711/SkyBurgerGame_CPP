@@ -13,6 +13,7 @@ protected:
     Texture foodTexture;
     int pointValue;
     float fallSpeed;
+    bool isCaught;
 
 public:
     FoodItem(const string& textureFile, int points, float speed);
@@ -22,6 +23,10 @@ public:
     virtual void checkCollision(Player& player, Burger& burger) override;
     virtual FloatRect getGlobalBounds() const override;
     int getPointValue() const { return pointValue; }
+    Vector2f getPosition() const;
+    bool getIsCaught() const;
+    void setIsCaught(bool added);
+
 };
 
 #endif 
