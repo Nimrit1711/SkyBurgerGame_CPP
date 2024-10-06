@@ -1,29 +1,27 @@
 #ifndef FOODITEM_H
 #define FOODITEM_H
 
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <vector>
 #include "FallingObjects.h"
-#include "Player.h"
-#include "Burger.h"
-
-using namespace sf;
-using namespace std;
+#include <SFML/Graphics.hpp>
+class Player; // Forward declaration
+class Burger; 
 
 
-class FoodItem: public FallingObjects{
-    protected:
+class FoodItem : public FallingObjects {
+protected:
+    Sprite sprite;
+    Texture foodTexture;
     int pointValue;
     float fallSpeed;
+
+public:
+    FoodItem(const string& textureFile, int points, float speed);
     
-    public:
-    FoodItem(float fallSpeed, const Vector2f& startingPosition, const string textureFile, int points);
-    
-    void updateObjectPosition(float Time) override;
-    void renderObject(RenderWindow& window) override;
-    void checkCollision(Player& player, Burger& burger) override;    
-    int getPointValue() const;
+    virtual void update(float deltaTime) override;
+    virtual void render(RenderWindow& window) override;
+    virtual void checkCollision(Player& player, Burger& burger) override;
+    virtual FloatRect getGlobalBounds() const override;
+    int getPointValue() const { return pointValue; }
 };
 
-#endif
+#endif 

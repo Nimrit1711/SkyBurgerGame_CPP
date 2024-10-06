@@ -1,8 +1,11 @@
-#pragma once
+#ifndef PATTY_H
+#define PATTY_H
+
 #include "FoodItem.h"
 
-class Patty: public FoodItem{
-    public:
-    Patty(const Vector2f pattyPosition);
-
+class Patty : public FoodItem {
+public:
+    Patty();
 };
+
+#endif 

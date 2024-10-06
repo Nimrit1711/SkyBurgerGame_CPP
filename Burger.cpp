@@ -1,38 +1,18 @@
 #include "Burger.h"
 
+Burger::Burger() : totalPoints(0) {}
 
-Burger:: Burger():stackHeight(0){
-    burgerPile.clear();  
-    
+void Burger::addIngredient(std::unique_ptr<FoodItem> ingredient) {
+    totalPoints += ingredient->getPointValue(); // Updates the total points
+    burgerPile.push_back(move(ingredient)); // Stores the ingredients
 }
 
-void Burger:: addIngredient(unique_ptr<FoodItem> ingredient){
-    stackHeight += ingredient->getSize().y; //gets the ingredients height 
-    burgerPile.push_back(move(ingredient));  
-      
-}
-
-void Burger:: clearStack(){
-    burgerPile.clear();
-    stackHeight=0;
-}
-
-void Burger::renderBurger(sf::RenderWindow& window, const sf::Vector2f& playerPosition){
-    Vector2f position = playerPosition;  
-
-    for (auto& ingredient : burgerPile) {
-        
-        position.y -= ingredient->getSize().y;  // Stacks upwards
-        ingredient->setPosition(position);  
-        ingredient->renderObject(window);  
+void Burger::render(sf::RenderWindow& window, const sf::Vector2f& playerPosition) {
+    for (const auto& item : burgerPile) {
+        item->render(window); // Renders each ingredient
     }
 }
-   
 
-void Burger:: setStackHeight(int height){
-    this->stackHeight=height;
-}
-
-int Burger:: getStackHeight(){
-    return stackHeight;
+int Burger::getTotalPoints() const {
+    return totalPoints; 
 }

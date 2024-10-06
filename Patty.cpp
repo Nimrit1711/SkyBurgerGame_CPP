@@ -1,5 +1,5 @@
 #include "Patty.h"
 
-Patty:: Patty(const Vector2f pattyPosition)
-    :FoodItem(2.0f, pattyPosition, "Patty.png",10){
-    }
+Patty::Patty() : FoodItem("Patty.png", 3, 90.f) {
+    
+}

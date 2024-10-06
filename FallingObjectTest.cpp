@@ -1,49 +1,56 @@
+// compile: g++ FallingObjectTest.cpp Player.cpp Burger.cpp FoodItem.cpp Lettuce.cpp -lsfml-graphics -lsfml-window -lsfml-system
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include <memory>
 #include "Player.h"
 #include "Burger.h"
-#include "Lettuce.h"  // Include your other ingredient classes similarly
-#include "Tomato.h"
-#include "Patty.h"
-
+#include "Lettuce.h"
 using namespace sf;
+using namespace std;
+
 
 int main() {
-    // Create the main game window
-    RenderWindow window(VideoMode(800, 600), "Faling Object Tester");
-    window.setFramerateLimit(60); // Limit the frame rate
+    
+    RenderWindow window(VideoMode(800, 600), "Sky Burger Game");
 
-    // Create the Burger and Player objects
+    
     Burger burger;
+
+    
     Player player(&burger);
 
-    // Game loop
+    
+    unique_ptr<FallingObjects> foodItem = make_unique<Lettuce>();
+
+    
+    Clock clock;
+
+    // Main game loop
     while (window.isOpen()) {
-        // Handle events
         Event event;
         while (window.pollEvent(event)) {
-            if (event.type == Event::Closed)
+            if (event.type == Event::Closed) {
                 window.close();
-        }
+            }
+        }        
+        float deltaTime = clock.restart().asSeconds();
+        
+        player.handleInput(window);
 
-        // Update player movement
-        player.updateMovement(window);
+        // Update the player and food item
+        player.update(deltaTime);
+        foodItem->update(deltaTime);
 
-        // Simulate falling objects (in this case, we'll just add a lettuce)
-        if (rand() % 100 < 2) {  // Randomly add a new lettuce every few frames
-            auto lettuce = std::make_unique<Lettuce>(Vector2f(rand() % 800, 0)); // Random x position
-            burger.addIngredient(std::move(lettuce));
-        }
+        
+        foodItem->checkCollision(player, burger);
+        
+        // Render graphics
+        window.clear(Color(135,206, 235));
+        
+        burger.render(window, player.getPlayerPosition()); 
+        foodItem->render(window); 
+        player.render(window); 
 
-        // Clear the window
-        window.clear(Color::White);
-
-        // Render player and burger
-        player.renderPlayer(window);
-        burger.renderBurger(window, player.getPlayerPosition());
-
-        // Display the contents of the window
+    
         window.display();
     }
 

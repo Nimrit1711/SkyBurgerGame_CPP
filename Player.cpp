@@ -1,87 +1,75 @@
 #include "Player.h"
-#include <SFML/Graphics.hpp>
 #include <iostream>
-#include <vector>
-using namespace sf;
-using namespace std;
 
-    //player constructor
-    Player::Player(Burger* burger): burger(burger){
-            if (!playerTexture.loadFromFile("file.png")) {
-            cout<< "Error loading player texture" << endl;
-        }
-            playerObject.setTexture(&playerTexture);
-            playerObject.setSize(Vector2f(100,100));
-            playerPosition=Vector2f(100.0f,500.0f);
-            playerObject.setPosition(playerPosition);
-            Velocity = 0.5;
-            isAlive = true;
-            lives = 3;
-        }
-
-    int Player:: getLives(){
-        return lives;
-    }
-
-
-    void Player:: updateMovement(const sf::RenderWindow& window){
-            if (Keyboard::isKeyPressed(Keyboard::Key::Left)){
-                Velocity=-0.5;
-                
-            } else if (Keyboard::isKeyPressed(Keyboard::Key::Right)){
-                Velocity=0.55;
-            }
-
-            playerPosition.x += Velocity;
-            checkBounds(window); // checks bounds first then sets the position
-            playerObject.setPosition(playerPosition);
-        
-            //burger->renderBurger(window, playerPosition);
-    }  
-
-
-    void Player::renderPlayer(RenderWindow& window) {
-        window.draw(playerObject);  //renders player on the game window
-        
-    }
-
-    bool Player:: isALive() const{
-        if (lives>0){
-            return true;
-            cout<< "Player is  alive"<<endl;
-            
-        } else{
-            return false;
-            cout<< "Player is not alive"<<endl;
-        }
-    }
-
-    void Player:: loseLife(){
-        if (lives>0){
-        --lives;
-        }
-        cout<<"lives after reduction: "<< getLives()<<endl;
-        
-        if (lives == 0) {
-        isAlive = false;
-        cout << "Player is dead!" << endl;
-    }
-}
+Player::Player(Burger* burger)
+    : burger(burger), lives(3), velocityX(0.5) {
+    if (!playerTexture.loadFromFile("file.png")) {
+      cout<<"player not loaded"<<endl;
+    }            
+    sprite.setTexture(playerTexture);   
+    position = Vector2f(400.0f, 500.0f);  
+    sprite.setScale(0.5f, 0.5f); 
+    sprite.setPosition(position);   
     
-    void Player::checkBounds(const sf::RenderWindow& window) {
-        
-        if (playerPosition.x < -playerObject.getSize().x) {
-            playerPosition.x = window.getSize().x;
-        }
-        if (playerPosition.x > window.getSize().x) {
-            playerPosition.x = -playerObject.getSize().x;
-        }
 }
 
-FloatRect Player:: getPlayerBounds() const {
-    return playerObject.getGlobalBounds();
+void Player::handleInput(RenderWindow& window) {
+    if (Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+        velocityX =-0.5; //move by 5 pixels
+        isMovingRight=false;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        velocityX  = 0.5; //move by 5 pixels
+        isMovingRight=true;
+    }    
+    checkBounds(window);
+    sprite.setPosition(position);
 }
 
-Vector2f Player::getPlayerPosition() const {
-    return playerObject.getPosition();
+void Player::update(float deltaTime) {
+    position.x += velocityX;
+    sprite.setPosition(position);
+}
+
+void Player::render(RenderWindow& window) {
+    window.draw(sprite);
+}
+
+FloatRect Player::getPlayerBounds() const {
+    return sprite.getGlobalBounds();
+}
+
+void Player::loseLife() {
+    if (lives > 0) {
+        lives--;
+    }
+}
+
+int Player::getLives() const {
+    return lives;
+}
+
+bool Player::isAlive() const {
+    return lives > 0;
+}
+
+Vector2f Player::getPlayerPosition() {
+    return position;
+}
+
+
+void Player::checkBounds(const RenderWindow& window) {
+    
+    FloatRect playerBounds = sprite.getGlobalBounds();
+
+    // Checks if the player goes out of the window bounds on the left
+    if (position.x < -playerBounds.width) {
+        position.x = window.getSize().x;
+    }
+
+    // Checks if the player goes out of the window bounds on the right
+    if (position.x > window.getSize().x) {
+        position.x = -playerBounds.width;
+    }    
+    sprite.setPosition(position);
 }

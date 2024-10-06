@@ -1,46 +1,35 @@
-// header file for Player Class
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <SFML/Graphics.hpp>
-#include <iostream>
 #include "Burger.h"
+#include <SFML/Graphics.hpp>
 using namespace sf;
 using namespace std;
 
 class Player {
-    private:
-    //defning the graphics
-    RectangleShape playerObject;
+private:
+    Vector2f position;
+    Sprite sprite;
     Texture playerTexture;
-    
-    bool isAlive;   // determines if they are alive
-    float Velocity;  // players speed
-    Vector2f playerPosition;
-    bool isBound;
-    int lives;
     Burger* burger;
+    int lives;
+    float velocityX; 
+    bool isMovingRight; 
+    float speed;
+    bool isBound;
+    
 
-
-    public:
+public:
     Player(Burger* burger);
-    
-    void updateMovement(const sf::RenderWindow& window);   //moving functions for the player
-     
-    void renderPlayer(RenderWindow& window);  //render function for player
-    
-    int getLives();
-
-    bool isALive() const; // checking if the player is alive
-
-    void loseLife(); // taking the life away
-    
-    void checkBounds(const sf::RenderWindow& window); //prevents the player from going out of the window 
-
+    void handleInput(RenderWindow& window);
+    void update(float deltaTime);
+    void render(RenderWindow& window);
     FloatRect getPlayerBounds() const;
-
-    Vector2f getPlayerPosition() const;
-
+    void loseLife();
+    int getLives() const;
+    bool isAlive() const;
+    Vector2f getPlayerPosition();
+    void checkBounds(const RenderWindow& window); 
 };
 
-#endif
+#endif 
