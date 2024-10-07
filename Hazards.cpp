@@ -28,14 +28,17 @@
         Vector2f playerPosition=player.getPlayerPosition();
         Vector2f topOfStack = burger.getTopOfStack(playerPosition);
         
-        if (hazardBounds.intersects(FloatRect(topOfStack.x + playerWidth / 4, topOfStack.y, playerWidth / 2, hazardBounds.height))) {
-            
-            setIsCaught(true);
+        //if (hazardBounds.intersects(FloatRect(topOfStack.x + playerWidth / 4, topOfStack.y, playerWidth / 2, hazardBounds.height))) {
+         //setIsCaught(true);
 
+        FloatRect collisionBox(topOfStack.x, topOfStack.y - 5, playerWidth, 5);
+        if (hazardBounds.intersects(collisionBox)) {
+            setIsCaught(true);
+        }
             if (!player.isAlive()) {
                 cout<<"0 lives left. game over! "<<endl;
             }
-        }
+        
     }
     
 

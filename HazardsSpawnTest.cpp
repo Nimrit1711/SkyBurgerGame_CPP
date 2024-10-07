@@ -98,25 +98,27 @@ int main() {
 
        
         // Update falling items and checks for collisions
-        for (auto it = fallingItems.begin(); it != fallingItems.end(); ) {
+        for (auto it = fallingItems.begin(); it != fallingItems.end(); ) { 
             (*it)->update(deltaTime);
-            if (auto foodItem = dynamic_cast<FoodItem*>(it->get())) {
+            if (auto foodItem = dynamic_cast<FoodItem*>(it->get())) { // if its a food item
                 foodItem->checkCollision(player, burger);
                 if (foodItem->getIsCaught()) {
                     it = fallingItems.erase(it);
                     continue;
                 }
-            } else if (auto hazard = dynamic_cast<Hazards*>(it->get())) {
+            } else if (auto hazard = dynamic_cast<Hazards*>(it->get())) { // if object is a hazard
                 hazard->checkCollision(player, burger);
                 if (hazard->getIsCaught()) {
-                    if (auto poisonBottle = dynamic_cast<PoisonBottle*>(hazard)) {
+                    if (auto poisonBottle = dynamic_cast<PoisonBottle*>(hazard)) { // checks if its the poison bottle
                         poisonBottle->applyPoisonEffect(player);
                         //burger.startFlashing(0.03f);
+                    } else {
+                        player.loseLife();    //if its the other hazards, lose a life. 
                     }
                     //burger.startFlashing(0.03f);
-                    player.loseLife();                      
-                    it = fallingItems.erase(it);
-                    if (!player.isAlive()){
+                                      
+                    it = fallingItems.erase(it); // remove graphic
+                    if (!player.isAlive()){  // if player is not alive. end the game
                         gameRunning = false;
                         std::cout<<"Total Points: "<<burger.getTotalPoints()<<std::endl;
                     }

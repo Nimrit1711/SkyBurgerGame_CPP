@@ -8,6 +8,7 @@ class GoldenIngredient: public FoodItem{
     public:
 
     private:
+    GoldenIngredient();
 
 
 
