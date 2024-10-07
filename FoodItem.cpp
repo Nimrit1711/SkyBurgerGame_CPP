@@ -1,22 +1,21 @@
 #include "FoodItem.h"
 #include "Player.h"
 #include "Burger.h"
+#include <iostream>
 
 
-
-FoodItem::FoodItem(const string& textureFile, int points, float speed)
-    : pointValue(points), fallSpeed(speed), isCaught(false) {
-    foodTexture.loadFromFile(textureFile);
-    sprite.setTexture(foodTexture);
-    sprite.setScale(0.5f, 0.5f);
-}
+FoodItem::FoodItem(int points, float speed):
+    pointValue(points), fallSpeed(speed), isCaught(false) {
+    foodShape.setSize(Vector2f(100.f, 20.f));
+    foodShape.setFillColor(Color::Green); 
+    }
 
 void FoodItem::update(float deltaTime) {
-    sprite.move(0, fallSpeed * deltaTime);
+    foodShape.move(0, fallSpeed * deltaTime);
 }
 
 void FoodItem::render(RenderWindow& window) {
-    window.draw(sprite);
+    window.draw(foodShape);
 }
 
 void FoodItem::checkCollision(Player& player, Burger& burger) {
@@ -46,14 +45,15 @@ void FoodItem::setIsCaught(bool added) {
 }
 
 FloatRect FoodItem::getGlobalBounds() const {
-    return sprite.getGlobalBounds();
+    return foodShape.getGlobalBounds();
 }
 
 
 void FoodItem::setPosition(const Vector2f& pos) {
-    sprite.setPosition(pos);
+    foodShape.setPosition(pos);
 }
 
 Vector2f FoodItem:: getPosition() const{
-    return sprite.getPosition();
+    return foodShape.getPosition();
 }
+

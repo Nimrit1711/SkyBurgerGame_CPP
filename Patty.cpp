@@ -1,6 +1,7 @@
 #include "Patty.h"
 
-Patty::Patty() : FoodItem("Patty.png", 3, 90.f) {
+Patty::Patty() : FoodItem(3, 90.f) {
+    foodShape.setFillColor(Color(125, 60, 17));
     
 }
 

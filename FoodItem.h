@@ -9,14 +9,14 @@ class Burger;
 
 class FoodItem : public FallingObjects {
 protected:
-    Sprite sprite;
-    Texture foodTexture;
+    RectangleShape foodShape;
     int pointValue;
     float fallSpeed;
     bool isCaught;
+    
 
 public:
-    FoodItem(const string& textureFile, int points, float speed);
+    FoodItem(int points, float speed);
     virtual void setPosition(const Vector2f& pos) override; 
     virtual void update(float deltaTime) override;
     virtual void render(RenderWindow& window) override;
@@ -27,6 +27,8 @@ public:
     bool getIsCaught() const;
     void setIsCaught(bool added);
     virtual unique_ptr<FoodItem> create() const = 0;
+    void changeTexture();  // changes the texture of the food item if its been caught
+
     
 
 };

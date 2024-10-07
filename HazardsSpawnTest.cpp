@@ -9,8 +9,10 @@
 #include "Burger.h"
 #include "Lettuce.h"
 #include "Tomato.h"
+#include "Onion.h"
 #include "Patty.h"
 #include "Hazards.h"
+#include "Cheese.h"
 #include "Bomb.h"
 using namespace sf;
 using namespace std;
@@ -61,7 +63,7 @@ int main() {
             float randomX = static_cast<float>(rand() % window.getSize().x);
 
             // Randomly select a food type to spawn
-            int randomSpawnType = rand() % 4; 
+            int randomSpawnType = rand() % 6; 
 
             unique_ptr<FallingObjects> newItem;
             if (randomSpawnType == 0) {
@@ -70,6 +72,10 @@ int main() {
                 newItem = make_unique<Tomato>();
             } else if (randomSpawnType==2){
                 newItem = make_unique<Patty>();
+            } else if(randomSpawnType==3){
+                newItem = make_unique<Cheese>();
+            }else if(randomSpawnType==4){
+                newItem=make_unique<Onion>();
             } else {
                 newItem = make_unique<Bomb>();
             }
@@ -85,14 +91,18 @@ int main() {
         // Update falling items and checks for collisions
         for (auto it = fallingItems.begin(); it != fallingItems.end(); ) {
             (*it)->update(deltaTime);
+
             if (auto foodItem = dynamic_cast<FoodItem*>(it->get())) {
                 foodItem->checkCollision(player, burger);
+
                 if (foodItem->getIsCaught()){
+                                     
                     it = fallingItems.erase(it);
                     continue;
                 }
             } else if (auto hazard = dynamic_cast<Hazards*>(it->get())){
                 hazard->checkCollision(player,burger);
+
                 if (!player.isAlive()){
                     it=fallingItems.erase(it);
                     gameRunning = false;
@@ -113,7 +123,7 @@ int main() {
         }
         
         
-        window.clear(Color(135, 206, 235));
+        window.clear(Color(197,234,250));
 
         //loop for rendering falling ingredients
         for (auto& item : fallingItems) {
