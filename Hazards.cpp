@@ -1,6 +1,6 @@
 #include "Hazards.h"
 #include <iostream>
-    Hazards:: Hazards(const string& textureFile, float speed):hazardSpeed(speed){
+    Hazards:: Hazards(const string& textureFile, float speed):hazardSpeed(speed), isCaught(false){
         if (!hazardTexture.loadFromFile(textureFile)){
             cout<<"file not loaded"<<endl;
         }
@@ -17,17 +17,27 @@
         window.draw(hazardSprite);
     }
 
+   
     void Hazards::checkCollision(Player& player, Burger& burger) {
-    if (isCaught) return; // Skip if already caught
-     if (hazardSprite.getGlobalBounds().intersects(player.getPlayerBounds())) {
-           player.loseLife(); 
-          isCaught = true; // Mark as caught to prevent further collisions
-         if (!player.isAlive()) {
-               // Handle game over logic if required
-              std::cout << "Game Over!" << std::endl;
+        if (getIsCaught()) {
+            return; 
+        }
+        FloatRect hazardBounds = getGlobalBounds();
+        FloatRect playerBounds = player.getPlayerBounds();
+        float playerWidth = playerBounds.width;
+        Vector2f playerPosition=player.getPlayerPosition();
+        Vector2f topOfStack = burger.getTopOfStack(playerPosition);
+        
+        if (hazardBounds.intersects(FloatRect(topOfStack.x + playerWidth / 4, topOfStack.y, playerWidth / 2, hazardBounds.height))) {
+            player.loseLife();  
+            setIsCaught(true);
+
+            if (!player.isAlive()) {
+                cout<<"0 lives left. game over! "<<endl;
             }
         }
     }
+    
 
 
     FloatRect Hazards::getGlobalBounds() const{

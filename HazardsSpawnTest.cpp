@@ -17,8 +17,7 @@
 using namespace sf;
 using namespace std;
 
-//compile code: g++ HazardsSpawnTest.cpp Player.cpp Burger.cpp FoodItem.cpp Tomato.cpp Patty.cpp Lettuce.cpp Bomb.cpp Hazards.cpp -lsfml-graphics -lsfml-window -lsfml-system
-
+//compile code: g++ HazardsSpawnTest.cpp Player.cpp Burger.cpp FoodItem.cpp Tomato.cpp Patty.cpp Lettuce.cpp Bomb.cpp Hazards.cpp Cheese.cpp Onion.cpp -lsfml-graphics -lsfml-window -lsfml-system
 int main() {
     // Seeds random number generator
     srand(static_cast<unsigned int>(time(0)));
@@ -91,28 +90,24 @@ int main() {
         // Update falling items and checks for collisions
         for (auto it = fallingItems.begin(); it != fallingItems.end(); ) {
             (*it)->update(deltaTime);
-
             if (auto foodItem = dynamic_cast<FoodItem*>(it->get())) {
                 foodItem->checkCollision(player, burger);
-
-                if (foodItem->getIsCaught()){
-                                     
+                if (foodItem->getIsCaught()) {
                     it = fallingItems.erase(it);
                     continue;
                 }
-            } else if (auto hazard = dynamic_cast<Hazards*>(it->get())){
-                hazard->checkCollision(player,burger);
-
-                if (!player.isAlive()){
-                    it=fallingItems.erase(it);
-                    gameRunning = false;
+            } else if (auto hazard = dynamic_cast<Hazards*>(it->get())) {
+                hazard->checkCollision(player, burger);
+                if (hazard->getIsCaught()) {
+                    it = fallingItems.erase(it);
+                    if (!player.isAlive()){
+                        gameRunning = false;
+                    }
                     continue;
                 }
             }
             ++it;        
         }
-
-
          // camera logic.
         float topOfStackY = burger.getTopOfStack(player.getPlayerPosition()).y;
     
@@ -121,8 +116,7 @@ int main() {
             player.setPosition(Vector2f(player.getPlayerPosition().x, player.getPlayerPosition().y + cameraMoveSpeed));
             burger.moveDown(cameraMoveSpeed); 
         }
-        
-        
+                
         window.clear(Color(197,234,250));
 
         //loop for rendering falling ingredients
@@ -136,4 +130,5 @@ int main() {
     }
 
     return 0;
+
 }

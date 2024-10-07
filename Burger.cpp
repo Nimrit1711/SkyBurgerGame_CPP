@@ -40,7 +40,7 @@ Vector2f Burger::getTopOfStack(const Vector2f& playerPosition) const {
     } else {
         // Get the position of the topmost item
         const auto& topItem = burgerPile.back();
-        sf::FloatRect topBounds = topItem->getGlobalBounds();
+        FloatRect topBounds = topItem->getGlobalBounds();
         // Return the position at the top of the topmost item
         return sf::Vector2f(topItem->getPosition().x, topBounds.top);
     }

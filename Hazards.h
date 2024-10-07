@@ -8,9 +8,9 @@
 class Hazards: public FallingObjects{
     protected:
     Sprite hazardSprite;
-    Texture hazardTexture;
-    bool isCaught;
+    Texture hazardTexture;   
     float hazardSpeed;
+    bool isCaught;
 
     public:
     Hazards(const string& textureFile, float speed);
@@ -19,6 +19,8 @@ class Hazards: public FallingObjects{
     void checkCollision(Player& player, Burger& burger) override;
     FloatRect getGlobalBounds() const override;
     void setPosition(const Vector2f& pos) override;
+    bool getIsCaught() const override { return isCaught; }
+    void setIsCaught(bool caught) override { isCaught = caught; }
 
 };
 

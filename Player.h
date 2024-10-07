@@ -29,7 +29,7 @@ public:
     int getLives() const;
     bool isAlive() const;
     Vector2f getPlayerPosition();
-    void checkBounds(const RenderWindow& window); 
+    void checkBounds(const RenderWindow& window);     
     void setPosition(const Vector2f& newPosition);
 };
 
