@@ -1,4 +1,5 @@
 #include "Burger.h"
+#include "Player.h"
 #include "FoodItem.h"
 
 using namespace std;
@@ -10,10 +11,10 @@ void Burger::addIngredient(std::unique_ptr<FoodItem> ingredient) {
     burgerPile.push_back(move(ingredient)); // Stores the ingredients
 }
 
-void Burger::render(sf::RenderWindow& window, const sf::Vector2f& playerPosition) {
+void Burger::render(RenderWindow& window, const Vector2f& playerPosition,  const Player& player) {
     float yStackPosition= playerPosition.y;  
     //centering the ingreident ontop of the stack
-    float playerWidth = window.getDefaultView().getSize().x / 2;  
+    float playerWidth = player.getPlayerBounds().width;
     for (const auto& item : burgerPile) {
         yStackPosition -= item->getGlobalBounds().height;
         //center

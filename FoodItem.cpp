@@ -30,7 +30,7 @@ void FoodItem::checkCollision(Player& player, Burger& burger) {
     if (foodBounds.intersects(FloatRect(topOfStack.x, topOfStack.y, foodBounds.width, foodBounds.height))) {
         // Add the current FoodItem to the burger
         
-         burger.addIngredient(create());
+        burger.addIngredient(create());
         setIsCaught(true);
         fallSpeed = 0.0f;
     }       

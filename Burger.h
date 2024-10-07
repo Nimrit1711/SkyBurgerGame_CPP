@@ -15,7 +15,7 @@ private:
 public:
     Burger();
     void addIngredient(unique_ptr<FoodItem> ingredient);
-    void render(RenderWindow& window, const Vector2f& playerPosition);
+    void render(RenderWindow& window, const Vector2f& playerPosition, const Player& player);
     int getTotalPoints() const;
     Vector2f getTopOfStack(const Vector2f& playerPosition) const;
     

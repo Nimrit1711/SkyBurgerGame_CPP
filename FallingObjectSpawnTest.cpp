@@ -97,7 +97,7 @@ int main() {
         }
 
         player.render(window); 
-        burger.render(window, player.getPlayerPosition()); 
+        burger.render(window, player.getPlayerPosition(), player); 
         window.display();
     }
 
