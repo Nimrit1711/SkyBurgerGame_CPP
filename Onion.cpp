@@ -1,6 +1,6 @@
 #include "Onion.h"
 
-Onion::Onion() : FoodItem(4, 90.f) {
+Onion::Onion() : FoodItem(4, 115.f) {
     foodShape.setFillColor(Color(185, 108, 147));
     
 }

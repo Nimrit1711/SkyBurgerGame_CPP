@@ -2,12 +2,12 @@
 #include <iostream>
 
 Player::Player(Burger* burger)
-    : burger(burger), lives(3), velocityX(0.9), poisonDuration(0) {
+    : burger(burger), lives(3), velocityX(0.9f), poisonDuration(0) {
     if (!playerTexture.loadFromFile("file.png")) {
       cout<<"player not loaded"<<endl;
     }            
     sprite.setTexture(playerTexture);   
-    position = Vector2f(400.0f, 500.0f);  
+    position = Vector2f(400.0f, 700.0f);  
     sprite.setScale(0.3f, 0.3f); 
     sprite.setPosition(position);   
     
@@ -17,15 +17,17 @@ void Player::handleInput(RenderWindow& window) {
     float speedMultiplier=1.0f;
     if (isPoisoned){
         speedMultiplier=0.5f;
-    }
+    }    
+    
     if (Keyboard::isKeyPressed(sf::Keyboard::Left)) {
         velocityX =-0.5*speedMultiplier; //move by 5 pixels
         isMovingRight=false;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        velocityX  = 0.5*speedMultiplier; //move by 5 pixels
+        velocityX  =0.5*speedMultiplier; //move by 5 pixels
         isMovingRight=true;
-    }    
+    }  
+
     checkBounds(window);
     sprite.setPosition(position);
 }
@@ -34,6 +36,8 @@ void Player::update(float deltaTime, RenderWindow& window) {
     checkPoisonEffect();
     position.x += velocityX;
     sprite.setPosition(position);
+    
+    
 }
 
 void Player::render(RenderWindow& window) {
@@ -66,7 +70,7 @@ Vector2f Player::getPlayerPosition() {
 
 void Player::checkBounds(const RenderWindow& window) {
     
-    FloatRect playerBounds = sprite.getGlobalBounds();
+     FloatRect playerBounds = sprite.getGlobalBounds();
 
     // Checks if the player goes out of the window bounds on the left
     if (position.x < -playerBounds.width) {
@@ -77,6 +81,9 @@ void Player::checkBounds(const RenderWindow& window) {
     if (position.x > window.getSize().x) {
         position.x = -playerBounds.width;
     }    
+    
+
+      
     sprite.setPosition(position);
 }
 

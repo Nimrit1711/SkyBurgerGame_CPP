@@ -26,7 +26,7 @@ int main() {
     // Seeds random number generator
     srand(static_cast<unsigned int>(time(0)));
 
-    RenderWindow window(VideoMode(800, 600), "Spawing Object test 3");
+    RenderWindow window(VideoMode(900, 800), "Spawing Object test 3");
 
     Burger burger;
     Player player(&burger);
@@ -37,8 +37,8 @@ int main() {
 
     Clock clock;
     float spawnTimer = 0.0f;
-    float spawnInterval = 1.0f; // Spawns every 1 second
-    const float cameraMoveSpeed = 0.5f; 
+    float spawnInterval = 1.0f; // Spawns every 0.8 second
+    const float cameraMoveSpeed = 1.0f; 
     const float halfWindowHeight = window.getSize().y / 2;
     bool gameRunning = true; //bool for if the player is still alive
     // Main game loop

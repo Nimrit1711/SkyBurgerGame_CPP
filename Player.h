@@ -22,6 +22,7 @@ private:
     Clock poisonTimer;  // Timer to track poison duration
     
     
+    
 
 public:
     Player(Burger* burger);
