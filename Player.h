@@ -30,6 +30,7 @@ public:
     bool isAlive() const;
     Vector2f getPlayerPosition();
     void checkBounds(const RenderWindow& window); 
+    void setPosition(const Vector2f& newPosition);
 };
 
 #endif 

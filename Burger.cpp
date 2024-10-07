@@ -46,3 +46,9 @@ Vector2f Burger::getTopOfStack(const Vector2f& playerPosition) const {
     }
 }
 
+void Burger::moveDown(float distance) {
+    for (auto& item : burgerPile) {
+        item->setPosition(item->getPosition() + Vector2f(0, distance));
+    }
+}
+

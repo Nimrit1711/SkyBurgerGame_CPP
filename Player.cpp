@@ -73,3 +73,9 @@ void Player::checkBounds(const RenderWindow& window) {
     }    
     sprite.setPosition(position);
 }
+
+
+void Player::setPosition(const Vector2f& newPosition) {
+    position = newPosition; 
+    sprite.setPosition(position); 
+}

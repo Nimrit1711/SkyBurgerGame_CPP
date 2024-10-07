@@ -18,6 +18,7 @@ public:
     void render(RenderWindow& window, const Vector2f& playerPosition, const Player& player);
     int getTotalPoints() const;
     Vector2f getTopOfStack(const Vector2f& playerPosition) const;
+    void moveDown(float distance);
     
 };
 

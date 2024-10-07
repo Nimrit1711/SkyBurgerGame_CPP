@@ -30,6 +30,8 @@ int main() {
     Clock clock;
     float spawnTimer = 0.0f;
     float spawnInterval = 1.0f; // Spawns every 1 second
+    const float cameraMoveSpeed = 0.5f; 
+    const float halfWindowHeight = window.getSize().y / 2;
 
     // Main game loop
     while (window.isOpen()) {
@@ -40,6 +42,7 @@ int main() {
             }
         }
 
+       
         float deltaTime = clock.restart().asSeconds();
 
       
@@ -88,6 +91,17 @@ int main() {
             ++it;
         }
         }
+
+
+         // camera logic.
+        float topOfStackY = burger.getTopOfStack(player.getPlayerPosition()).y;
+    
+        // If the stack is above halfway the window height, the burger pile moves down
+        if (topOfStackY < halfWindowHeight) {
+        player.setPosition(Vector2f(player.getPlayerPosition().x, player.getPlayerPosition().y + cameraMoveSpeed));
+        burger.moveDown(cameraMoveSpeed); 
+        }
+        
         
         window.clear(Color(135, 206, 235));
 
