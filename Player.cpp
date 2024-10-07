@@ -8,7 +8,7 @@ Player::Player(Burger* burger)
     }            
     sprite.setTexture(playerTexture);   
     position = Vector2f(400.0f, 500.0f);  
-    sprite.setScale(0.5f, 0.5f); 
+    sprite.setScale(0.3f, 0.3f); 
     sprite.setPosition(position);   
     
 }

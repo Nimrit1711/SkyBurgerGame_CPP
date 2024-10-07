@@ -11,10 +11,16 @@ void Burger::addIngredient(std::unique_ptr<FoodItem> ingredient) {
 }
 
 void Burger::render(sf::RenderWindow& window, const sf::Vector2f& playerPosition) {
-    float yStackPosition= playerPosition.y;    
+    float yStackPosition= playerPosition.y;  
+    //centering the ingreident ontop of the stack
+    float playerWidth = window.getDefaultView().getSize().x / 2;  
     for (const auto& item : burgerPile) {
         yStackPosition -= item->getGlobalBounds().height;
-        item->setPosition(Vector2f(playerPosition.x, yStackPosition));
+        //center
+        float itemWidth = item->getGlobalBounds().width;
+        float xCentered = playerPosition.x + (playerWidth / 2) - (itemWidth / 2);
+
+        item->setPosition(Vector2f(xCentered, yStackPosition));
         item->render(window); // Renders each ingredient
         cout<<totalPoints<<endl; // testing point score by printing it
     }
