@@ -2,7 +2,7 @@
 #include <iostream>
 
 Player::Player(Burger* burger)
-    : burger(burger), lives(3), velocityX(0.5) {
+    : burger(burger), lives(3), velocityX(0.9), poisonDuration(0) {
     if (!playerTexture.loadFromFile("file.png")) {
       cout<<"player not loaded"<<endl;
     }            
@@ -14,12 +14,16 @@ Player::Player(Burger* burger)
 }
 
 void Player::handleInput(RenderWindow& window) {
+    float speedMultiplier=1.0f;
+    if (isPoisoned){
+        speedMultiplier=0.5f;
+    }
     if (Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        velocityX =-0.5; //move by 5 pixels
+        velocityX =-0.5*speedMultiplier; //move by 5 pixels
         isMovingRight=false;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        velocityX  = 0.5; //move by 5 pixels
+        velocityX  = 0.5*speedMultiplier; //move by 5 pixels
         isMovingRight=true;
     }    
     checkBounds(window);
@@ -27,6 +31,7 @@ void Player::handleInput(RenderWindow& window) {
 }
 
 void Player::update(float deltaTime, RenderWindow& window) {
+    checkPoisonEffect();
     position.x += velocityX;
     sprite.setPosition(position);
 }
@@ -79,4 +84,21 @@ void Player::checkBounds(const RenderWindow& window) {
 void Player::setPosition(const Vector2f& newPosition) {
     position = newPosition; 
     sprite.setPosition(position); 
+}
+
+
+void Player:: applyPoison(float duration){
+    isPoisoned = true;
+    poisonDuration = duration;
+    poisonTimer.restart();      
+
+}
+
+void Player::checkPoisonEffect() {
+    if (isPoisoned) {
+        // Check if poison duration has passed
+        if (poisonTimer.getElapsedTime().asSeconds() >= poisonDuration) {
+            isPoisoned = false;
+        }
+    }
 }

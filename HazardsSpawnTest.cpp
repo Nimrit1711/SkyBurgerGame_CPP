@@ -11,9 +11,12 @@
 #include "Tomato.h"
 #include "Onion.h"
 #include "Patty.h"
-#include "Hazards.h"
 #include "Cheese.h"
+#include "Hazards.h"
+#include "PoisonBottle.h"
 #include "Bomb.h"
+#include "BananaPeel.h"
+#include "Sock.h"
 using namespace sf;
 using namespace std;
 
@@ -62,7 +65,7 @@ int main() {
             float randomX = static_cast<float>(rand() % window.getSize().x);
 
             // Randomly select a food type to spawn
-            int randomSpawnType = rand() % 6; 
+            int randomSpawnType = rand() % 9; 
 
             unique_ptr<FallingObjects> newItem;
             if (randomSpawnType == 0) {
@@ -75,8 +78,14 @@ int main() {
                 newItem = make_unique<Cheese>();
             }else if(randomSpawnType==4){
                 newItem=make_unique<Onion>();
-            } else {
+            } else if (randomSpawnType==5){
                 newItem = make_unique<Bomb>();
+            } else if (randomSpawnType==6){
+                newItem = make_unique<Sock>();
+            } else if (randomSpawnType==7){
+                newItem = make_unique<BananaPeel>();
+            } else {
+                newItem=make_unique<PoisonBottle>();
             }
 
             // sets the ingredients starting position with random X
@@ -99,6 +108,10 @@ int main() {
             } else if (auto hazard = dynamic_cast<Hazards*>(it->get())) {
                 hazard->checkCollision(player, burger);
                 if (hazard->getIsCaught()) {
+                    if (auto poisonBottle = dynamic_cast<PoisonBottle*>(hazard)) {
+                        poisonBottle->applyPoisonEffect(player);
+                    }
+                    player.loseLife();                      
                     it = fallingItems.erase(it);
                     if (!player.isAlive()){
                         gameRunning = false;

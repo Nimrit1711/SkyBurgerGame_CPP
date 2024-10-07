@@ -29,7 +29,7 @@
         Vector2f topOfStack = burger.getTopOfStack(playerPosition);
         
         if (hazardBounds.intersects(FloatRect(topOfStack.x + playerWidth / 4, topOfStack.y, playerWidth / 2, hazardBounds.height))) {
-            player.loseLife();  
+            
             setIsCaught(true);
 
             if (!player.isAlive()) {

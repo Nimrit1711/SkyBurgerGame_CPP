@@ -17,6 +17,10 @@ private:
     bool isMovingRight; 
     float speed;
     bool isBound;
+    bool isPoisoned;
+    float poisonDuration;
+    Clock poisonTimer;  // Timer to track poison duration
+    
     
 
 public:
@@ -31,6 +35,10 @@ public:
     Vector2f getPlayerPosition();
     void checkBounds(const RenderWindow& window);     
     void setPosition(const Vector2f& newPosition);
+    //void setSpeed(float speed);
+    //float getSpeed();
+    void applyPoison(float duration);
+    void checkPoisonEffect();
 };
 
 #endif 
