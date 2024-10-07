@@ -42,6 +42,7 @@ FloatRect Player::getPlayerBounds() const {
 void Player::loseLife() {
     if (lives > 0) {
         lives--;
+        cout<<"lives left: "<<getLives()<<endl;
     }
 }
 
