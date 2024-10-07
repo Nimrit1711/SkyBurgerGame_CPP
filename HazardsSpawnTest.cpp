@@ -2,6 +2,7 @@
 #include <memory>
 #include <vector>
 #include <cstdlib> 
+#include <iostream> 
 #include <ctime>   
 #include "Player.h"
 #include "FoodItem.h"
@@ -110,17 +111,21 @@ int main() {
                 if (hazard->getIsCaught()) {
                     if (auto poisonBottle = dynamic_cast<PoisonBottle*>(hazard)) {
                         poisonBottle->applyPoisonEffect(player);
+                        //burger.startFlashing(0.03f);
                     }
+                    //burger.startFlashing(0.03f);
                     player.loseLife();                      
                     it = fallingItems.erase(it);
                     if (!player.isAlive()){
                         gameRunning = false;
+                        std::cout<<"Total Points: "<<burger.getTotalPoints()<<std::endl;
                     }
                     continue;
                 }
             }
             ++it;        
         }
+        //burger.updateFlash();
          // camera logic.
         float topOfStackY = burger.getTopOfStack(player.getPlayerPosition()).y;
     
@@ -136,7 +141,7 @@ int main() {
         for (auto& item : fallingItems) {
             item->render(window);
         }
-
+        
         player.render(window); 
         burger.render(window, player.getPlayerPosition(), player); 
         window.display();

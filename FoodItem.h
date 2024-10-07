@@ -27,10 +27,8 @@ public:
     bool getIsCaught() const;
     void setIsCaught(bool added);
     virtual unique_ptr<FoodItem> create() const = 0;
-    void changeTexture();  // changes the texture of the food item if its been caught
-
-    
-
+    void setFoodColor(const Color& color);
+    Color getFoodColor() const;
 };
 
 #endif 

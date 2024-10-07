@@ -57,3 +57,10 @@ Vector2f FoodItem:: getPosition() const{
     return foodShape.getPosition();
 }
 
+void FoodItem::setFoodColor(const Color& color) {
+    foodShape.setFillColor(color);
+}
+
+ Color FoodItem:: getFoodColor() const {
+        return foodShape.getFillColor();
+    }
