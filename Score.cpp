@@ -10,12 +10,12 @@ Score::Score(int initialLives) {
 
 // Destructor
 Score::~Score() {
-    // Any cleanup if necessary
+   
 }
 
 // Update score based on the FoodItem's point value
 void Score::updateScore(FoodItem& food) {
-    currentScore += food.getPoints();  // Assuming FoodItem has a method to get its point value
+    currentScore += food.getPoints(); // check the get point function
     if (lives <= 0) {
         gameOver = true;  // If lives are 0 or less, mark game as over
     }
