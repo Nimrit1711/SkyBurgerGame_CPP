@@ -113,7 +113,7 @@ int main() {
                     } else {
                         player.loseLife();    //if its the other hazards, lose a life. 
                     }
-                    //burger.startFlashing(0.03f);
+                    //burger.startFlashing(1.f);
                     delete *it; // delete the dynamically allocated object                  
                     it = fallingItems.erase(it); // remove graphic
                     if (!player.isAlive()){  // if player is not alive. end the game

@@ -13,9 +13,7 @@ Player::Player(Burger* burger)
     
 }
 
-//Player::~Player(){
-  //  delete burger;
-//}
+
 
 //handles keyboard input from player
 void Player::handleInput(RenderWindow& window) {
@@ -25,11 +23,11 @@ void Player::handleInput(RenderWindow& window) {
     }    
     
     if (Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        velocityX =-0.5*speedMultiplier; //move by 5 pixels
+        velocityX =-0.9*speedMultiplier; //move by 5 pixels
         isMovingRight=false;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        velocityX  =0.5*speedMultiplier; //move by 5 pixels
+        velocityX  =0.9*speedMultiplier; //move by 5 pixels
         isMovingRight=true;
     }  
 

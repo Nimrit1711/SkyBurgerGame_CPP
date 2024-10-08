@@ -33,6 +33,7 @@
         FloatRect collisionBox(topOfStack.x, topOfStack.y - 5, playerWidth, 5);
         if (hazardBounds.intersects(collisionBox)) {
             setIsCaught(true);
+            burger.startFlashing(1.0f);
         }
             if (!player.isAlive()) {
                 cout<<"0 lives left. game over! "<<endl;
