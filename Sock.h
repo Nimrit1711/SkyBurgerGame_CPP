@@ -7,6 +7,7 @@ class Sock: public Hazards{
 
     public:
     Sock();
+    Hazards* create() const override;
 };
 
 #endif

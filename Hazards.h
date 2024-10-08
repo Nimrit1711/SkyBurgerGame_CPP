@@ -21,7 +21,7 @@ class Hazards: public FallingObjects{
     void setPosition(const Vector2f& pos) override;
     bool getIsCaught() const override { return isCaught; }
     void setIsCaught(bool caught) override { isCaught = caught; }
-
+    virtual Hazards* create() const =0;
 };
 
 

@@ -13,6 +13,11 @@ Player::Player(Burger* burger)
     
 }
 
+//Player::~Player(){
+  //  delete burger;
+//}
+
+//handles keyboard input from player
 void Player::handleInput(RenderWindow& window) {
     float speedMultiplier=1.0f;
     if (isPoisoned){
@@ -32,18 +37,19 @@ void Player::handleInput(RenderWindow& window) {
     sprite.setPosition(position);
 }
 
+//updates the players positon
 void Player::update(float deltaTime, RenderWindow& window) {
     checkPoisonEffect();
     position.x += velocityX;
-    sprite.setPosition(position);
-    
-    
+    sprite.setPosition(position);    
 }
 
+//renders the graphics
 void Player::render(RenderWindow& window) {
     window.draw(sprite);
 }
 
+//gets players box dimensions 
 FloatRect Player::getPlayerBounds() const {
     return sprite.getGlobalBounds();
 }
@@ -55,10 +61,12 @@ void Player::loseLife() {
     }
 }
 
+//returns the players remaining lives
 int Player::getLives() const {
     return lives;
 }
 
+//checks if the player is alive 
 bool Player::isAlive() const {
     return lives > 0;
 }
@@ -67,7 +75,7 @@ Vector2f Player::getPlayerPosition() {
     return position;
 }
 
-
+//checks and handles if the player moves outside of the game window 
 void Player::checkBounds(const RenderWindow& window) {
     
      FloatRect playerBounds = sprite.getGlobalBounds();
@@ -81,19 +89,18 @@ void Player::checkBounds(const RenderWindow& window) {
     if (position.x > window.getSize().x) {
         position.x = -playerBounds.width;
     }    
-    
 
-      
+     // sets the position to the other end of the window 
     sprite.setPosition(position);
 }
 
-
+//sets the players position
 void Player::setPosition(const Vector2f& newPosition) {
     position = newPosition; 
     sprite.setPosition(position); 
 }
 
-
+//applies the poision effect
 void Player:: applyPoison(float duration){
     isPoisoned = true;
     poisonDuration = duration;
@@ -101,6 +108,7 @@ void Player:: applyPoison(float duration){
 
 }
 
+// checks if the player is poisioned 
 void Player::checkPoisonEffect() {
     if (isPoisoned) {
         // Check if poison duration has passed

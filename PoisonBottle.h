@@ -12,6 +12,7 @@ public:
     void applyPoisonEffect(Player& player); 
     void update(float deltaTime) override;
     void render(RenderWindow& window) override;
+    Hazards* create() const override;
 };
 
 #endif

@@ -5,6 +5,6 @@ Onion::Onion() : FoodItem(4, 115.f) {
     
 }
 
-unique_ptr<FoodItem> Onion::create() const {
-    return std::make_unique<Onion>();
+FoodItem* Onion::create() const {
+    return new Onion();
 }

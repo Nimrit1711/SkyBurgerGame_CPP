@@ -10,14 +10,17 @@ FoodItem::FoodItem(int points, float speed):
     foodShape.setFillColor(Color::Green); 
     }
 
+//updates foodItems position
 void FoodItem::update(float deltaTime) {
     foodShape.move(0, fallSpeed * deltaTime);
 }
 
+//renders FoodItems graphics
 void FoodItem::render(RenderWindow& window) {
     window.draw(foodShape);
 }
 
+//checks if the food item has collided with the player and burgerpile
 void FoodItem::checkCollision(Player& player, Burger& burger) {
      if (getIsCaught()) {
         return; //skips if added to the burger pile
@@ -27,19 +30,19 @@ void FoodItem::checkCollision(Player& player, Burger& burger) {
     FloatRect foodBounds = getGlobalBounds();
 
     if (foodBounds.intersects(FloatRect(topOfStack.x, topOfStack.y, foodBounds.width, foodBounds.height))) {
-        // Add the current FoodItem to the burger
-        
-        burger.addIngredient(create());
+        // Add the current FoodItem to the burger        
+        burger.addIngredient(create()); // burger uses raw pointers 
         setIsCaught(true);
         fallSpeed = 0.0f;
     }       
 }
 
-
+// bool flag if the item is caught
 bool FoodItem::getIsCaught() const {
     return isCaught;
 }
 
+//sets if the food item is caught
 void FoodItem::setIsCaught(bool added) {
     isCaught= added;
 }
@@ -48,11 +51,12 @@ FloatRect FoodItem::getGlobalBounds() const {
     return foodShape.getGlobalBounds();
 }
 
-
+//sets position of foodItem
 void FoodItem::setPosition(const Vector2f& pos) {
     foodShape.setPosition(pos);
 }
 
+//returns 2f vector position of food item
 Vector2f FoodItem:: getPosition() const{
     return foodShape.getPosition();
 }

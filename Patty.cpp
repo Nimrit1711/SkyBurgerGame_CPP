@@ -5,6 +5,6 @@ Patty::Patty() : FoodItem(3, 120.f) {
     
 }
 
-unique_ptr<FoodItem> Patty::create() const {
-    return std::make_unique<Patty>();
+FoodItem* Patty::create() const {
+    return new Patty();
 }

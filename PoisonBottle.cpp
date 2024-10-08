@@ -21,3 +21,7 @@ void PoisonBottle::update(float deltaTime) {
 void PoisonBottle::render(RenderWindow& window) {
     window.draw(hazardSprite);
 }
+
+Hazards* PoisonBottle:: create() const{
+     return new PoisonBottle();
+}

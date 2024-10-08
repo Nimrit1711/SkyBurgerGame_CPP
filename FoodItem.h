@@ -13,7 +13,7 @@ protected:
     int pointValue;
     float fallSpeed;
     bool isCaught;
-    
+   
 
 public:
     FoodItem(int points, float speed);
@@ -26,7 +26,7 @@ public:
     Vector2f getPosition() const;
     bool getIsCaught() const;
     void setIsCaught(bool added);
-    virtual unique_ptr<FoodItem> create() const = 0;
+    virtual FoodItem* create() const = 0;
     void setFoodColor(const Color& color);
     Color getFoodColor() const;
 };

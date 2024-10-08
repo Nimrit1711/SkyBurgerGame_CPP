@@ -3,6 +3,6 @@
 Cheese::Cheese() : FoodItem(5, 160.f) {
     foodShape.setFillColor(Color(243, 181, 53));
 }
-unique_ptr<FoodItem> Cheese::create() const {
-    return make_unique<Cheese>();
+FoodItem* Cheese::create() const {
+    return new Cheese();
 }

@@ -6,12 +6,20 @@ using namespace std;
 #include <iostream>
 Burger::Burger(): totalPoints(0), isFlashing(false), flashDuration(0.5f), flashInterval(0.1f), flashColor(Color::Red){}
 
-void Burger::addIngredient(std::unique_ptr<FoodItem> ingredient) {
+Burger:: ~Burger(){
+    for (FoodItem* ingredient : burgerPile) {
+        delete ingredient;
+    }
+}
+
+// if collided, adds ingredient to the burger pile
+void Burger::addIngredient(FoodItem* ingredient) {
     originalColors.push_back(ingredient->getFoodColor()); //stores the ingredients original colour
     totalPoints += ingredient->getPointValue(); // Updates the total points
     burgerPile.push_back(move(ingredient)); // Stores the ingredients
 }
 
+//render burgers graphics ontop of the player
 void Burger::render(RenderWindow& window, const Vector2f& playerPosition,  const Player& player) {
    float yStackPosition= playerPosition.y; 
     /*
@@ -60,6 +68,7 @@ Vector2f Burger::getTopOfStack(const Vector2f& playerPosition) const {
     }
 }
 
+//moving the burger down if burger stack is to high
 void Burger::moveDown(float distance) {
     for (auto& item : burgerPile) {
         item->setPosition(item->getPosition() + Vector2f(0, distance));

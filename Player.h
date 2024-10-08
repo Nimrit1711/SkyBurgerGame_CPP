@@ -19,13 +19,12 @@ private:
     bool isBound;
     bool isPoisoned;
     float poisonDuration;
-    Clock poisonTimer;  // Timer to track poison duration
-    
-    
+    Clock poisonTimer;  // Timer to track poison duration 
     
 
 public:
     Player(Burger* burger);
+    //~Player();
     void handleInput(RenderWindow& window);
     void update(float deltaTime, RenderWindow& window);
     void render(RenderWindow& window);

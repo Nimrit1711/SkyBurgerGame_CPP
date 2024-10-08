@@ -6,7 +6,7 @@
 class Onion : public FoodItem {
 public:
     Onion();
-    unique_ptr<FoodItem> create() const override;
+    FoodItem* create() const override;
 };
 
 #endif 

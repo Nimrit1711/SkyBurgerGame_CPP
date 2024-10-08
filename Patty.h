@@ -6,7 +6,7 @@
 class Patty : public FoodItem {
 public:
     Patty();
-    unique_ptr<FoodItem> create() const override;
+    FoodItem* create() const override;
 };
 
 #endif 

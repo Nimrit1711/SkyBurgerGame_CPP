@@ -32,7 +32,7 @@ int main() {
     Player player(&burger);
 
     // Vector to store falling food items
-    vector<unique_ptr<FallingObjects>> fallingItems;
+    vector<FallingObjects*> fallingItems;
     
 
     Clock clock;
@@ -51,10 +51,8 @@ int main() {
         }
 
        
-        float deltaTime = clock.restart().asSeconds();
-      
-        player.handleInput(window);
-        
+        float deltaTime = clock.restart().asSeconds();      
+        player.handleInput(window);        
         player.update(deltaTime, window);
 
         // Spawn new ingredients at random time intervals
@@ -68,25 +66,25 @@ int main() {
             // Randomly select a food type to spawn
             int randomSpawnType = rand() % 9; 
 
-            unique_ptr<FallingObjects> newItem;
+            FallingObjects* newItem = nullptr;
             if (randomSpawnType == 0) {
-                newItem = make_unique<Lettuce>();
+                newItem = new Lettuce();
             } else if (randomSpawnType == 1) {
-                newItem = make_unique<Tomato>();
+                newItem = new Tomato();
             } else if (randomSpawnType==2){
-                newItem = make_unique<Patty>();
+                newItem = new Patty();
             } else if(randomSpawnType==3){
-                newItem = make_unique<Cheese>();
+                newItem = new Cheese();
             }else if(randomSpawnType==4){
-                newItem=make_unique<Onion>();
+                newItem = new Onion();
             } else if (randomSpawnType==5){
-                newItem = make_unique<Bomb>();
+                newItem = new Bomb();
             } else if (randomSpawnType==6){
-                newItem = make_unique<Sock>();
+                newItem = new Sock();
             } else if (randomSpawnType==7){
-                newItem = make_unique<BananaPeel>();
+                newItem = new BananaPeel();
             } else {
-                newItem=make_unique<PoisonBottle>();
+                newItem = new PoisonBottle();
             }
 
             // sets the ingredients starting position with random X
@@ -100,13 +98,13 @@ int main() {
         // Update falling items and checks for collisions
         for (auto it = fallingItems.begin(); it != fallingItems.end(); ) { 
             (*it)->update(deltaTime);
-            if (auto foodItem = dynamic_cast<FoodItem*>(it->get())) { // if its a food item
+            if (auto foodItem = dynamic_cast<FoodItem*>(*it)) { // if its a food item
                 foodItem->checkCollision(player, burger);
                 if (foodItem->getIsCaught()) {
                     it = fallingItems.erase(it);
                     continue;
                 }
-            } else if (auto hazard = dynamic_cast<Hazards*>(it->get())) { // if object is a hazard
+            } else if (auto hazard = dynamic_cast<Hazards*>(*it)) { // if object is a hazard
                 hazard->checkCollision(player, burger);
                 if (hazard->getIsCaught()) {
                     if (auto poisonBottle = dynamic_cast<PoisonBottle*>(hazard)) { // checks if its the poison bottle
@@ -116,7 +114,7 @@ int main() {
                         player.loseLife();    //if its the other hazards, lose a life. 
                     }
                     //burger.startFlashing(0.03f);
-                                      
+                    delete *it; // delete the dynamically allocated object                  
                     it = fallingItems.erase(it); // remove graphic
                     if (!player.isAlive()){  // if player is not alive. end the game
                         gameRunning = false;
@@ -143,11 +141,16 @@ int main() {
         for (auto& item : fallingItems) {
             item->render(window);
         }
-        
-        player.render(window); 
-        burger.render(window, player.getPlayerPosition(), player); 
-        window.display();
-    }
+            
+            player.render(window); 
+            burger.render(window, player.getPlayerPosition(), player); 
+            window.display();
+        }
+
+        // delter dynamically allocated objects
+        for (auto& item : fallingItems) {
+            delete item;
+        }
 
     return 0;
 

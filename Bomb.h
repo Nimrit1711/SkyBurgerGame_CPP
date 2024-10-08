@@ -7,6 +7,7 @@ class Bomb: public Hazards{
 
     public:
     Bomb();
+    Hazards* create() const override;
 };
 
 #endif

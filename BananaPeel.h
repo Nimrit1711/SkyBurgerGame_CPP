@@ -7,6 +7,9 @@ class BananaPeel: public Hazards{
 
     public:
     BananaPeel();
+    
+    Hazards* create() const override;
+
 };
 
 #endif
