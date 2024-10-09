@@ -1,28 +1,20 @@
 #ifndef SCORE_H
 #define SCORE_H
 
-#include "FoodItem.h" 
-#include <iostream>
+#include "fooditem.h"  // Access point values
 
 class Score {
 private:
-    int currentScore;  // Player's score in that game
-    int highestScore;  // Highest score the player has achieved
-    int lives;         // Number of player's lives
-    bool gameOver;     // Boolean to indicate if the game is over
+    int currentScore;   // The player's current score
+    int highestScore;   // The highest score achieved
 
 public:
-    // Constructor
-    Score(int initialLives);
-
-    // Destructor
-    ~Score();
-
-    // Function declarations
-    void updateScore(FoodItem& food); // Increases score based on the food's point value
-    void updateHighestScore();        // Updates the highest score
-    int getHighScore() const;         // Retrieves the highest score
-    bool isGameOver() const;          // Returns true if the player has zero lives
+    Score();
+    void updateScore(const FoodItem &food);  // Update score based on ingredient points
+    void updateHighestScore();  // Update highest score if the current score surpasses it
+    int getCurrentScore() const;  // Get the current score
+    int getHighestScore() const;  // Get the highest score
+    void resetScore();  // Reset the current score (e.g., on game restart)
 };
 
 #endif

@@ -1,40 +1,32 @@
 #include "Score.h"
-#include "Burger.h"
 
-// Constructor
-Score::Score(int initialLives) {
-    currentScore = 0;  // Initialize current score to 0
-    highestScore = 0;  // Initialize highest score to 0 (or retrieve from a file if persistent)
-    lives = initialLives;  // Set initial number of lives
-    gameOver = false;  // Game is not over initially
+// Constructor to initialize scores
+Score::Score() : currentScore(0), highestScore(0) {}
+
+// Update the score based on the collected food item
+void Score::updateScore(const FoodItem &food) {
+    // Use FoodItem's getPointValue() to add points to the current score
+    currentScore += food.getPointValue();
 }
 
-// Destructor
-Score::~Score() {
-   
-}
-
-// Update score based on the FoodItem's point value
-void Score::updateScore(FoodItem& food) {
-    currentScore += food.getPointValue(); // check the get point function
-    if (lives <= 0) {
-        gameOver = true;  // If lives are 0 or less, mark game as over
-    }
-}
-
-// Update the highest score if the current score is higher
+// Update the highest score if the current score exceeds it
 void Score::updateHighestScore() {
     if (currentScore > highestScore) {
         highestScore = currentScore;
     }
 }
 
-// Retrieve the highest score
-int Score::getHighScore() const {
+// Get the current score
+int Score::getCurrentScore() const {
+    return currentScore;
+}
+
+// Get the highest score
+int Score::getHighestScore() const {
     return highestScore;
 }
 
-// Check if the game is over (when lives are zero or less)
-bool Score::isGameOver() const {
-    return gameOver;
+// Reset the current score (useful for restarting the game)
+void Score::resetScore() {
+    currentScore = 0;
 }
