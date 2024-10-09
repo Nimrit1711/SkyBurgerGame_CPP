@@ -1,13 +1,20 @@
 #include "IntroductionMenu.h"
+#include <iostream>
+using namespace std;
 
 // Constructor for Introduction Menu
 IntroductionMenu::IntroductionMenu() {
-    titleFont.loadFromFile("SuperWater.ttf"); //should I include error for when font not loaded?
-    menuFont.loadFromFile("arial.ttf");
+    if (titleFont.loadFromFile("SuperWater.ttf")) {
+        cout<<"text not loaded!"<<endl;
+    }
+
+    if (menuFont.loadFromFile("arial.ttf")) {
+        cout<<"text not loaded!"<<endl;
+    }
 
     // Set up the title
     title.setFont(titleFont);
-    title.setString("Sky Burger");
+    title.setString("Sky Burger"); //only the title uses the title font
     title.setCharacterSize(50);
     title.setFillColor(sf::Color::White);
 

@@ -1,9 +1,11 @@
 #include "PauseMenu.h"
+#include <iostream>
+using namespace std;
 
 // Constructor for Pause Menu
 PauseMenu::PauseMenu() : currentSelection(0), isPaused(false) {
-    if (!menuFont.loadFromFile("arial.ttf")) {
-        // Handle font loading error
+    if (menuFont.loadFromFile("arial.ttf")) {
+        cout<<"text not loaded!"<<endl;
     }
 
     // Set up the title
@@ -109,12 +111,6 @@ void PauseMenu::renderMenu(sf::RenderWindow &window, int currentScore, int bestS
 
     window.display();
 }
-
-
-// Check if the game is paused
-//bool PauseMenu::isGamePaused() {
- //   return isPaused;
-//}
 
 // Return the selected option
 int PauseMenu::getSelectedOption() {
