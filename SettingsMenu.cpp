@@ -1,9 +1,12 @@
 #include "SettingsMenu.h"
+#include <iostream>
+
+using namespace std;
 
 // Constructor for Settings Menu
 SettingsMenu::SettingsMenu() : currentSelection(1), selectionConfirmed(false) {  // Default to "Default" option
     if (!menuFont.loadFromFile("arial.ttf")) {
-        // Handle font loading error
+        cout<<"text not loaded"<<endl;
     }
 
     // Set up the title
@@ -30,12 +33,12 @@ void SettingsMenu::handleInput(sf::RenderWindow &window) {
     sf::Event event;
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
-            window.close();  // Close the window if requested
+            window.close();  // Close the window if manually requested
         }
 
         // Handle arrow key navigation
         if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::Up) {
+            if (event.key.code == sf::Keyboard::Up) { //are we including w as well?
                 // Move up the list
                 if (currentSelection > 0) {
                     currentSelection--;
@@ -52,7 +55,6 @@ void SettingsMenu::handleInput(sf::RenderWindow &window) {
                 }
             }
             else if (event.key.code == sf::Keyboard::Space) {
-                // Confirm the selection
                 // Update the selectedDifficulty based on the currentSelection
                 switch (currentSelection) {
                     case 0:

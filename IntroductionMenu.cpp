@@ -2,7 +2,7 @@
 
 // Constructor for Introduction Menu
 IntroductionMenu::IntroductionMenu() {
-    titleFont.loadFromFile("SuperWater.ttf");
+    titleFont.loadFromFile("SuperWater.ttf"); //should I include error for when font not loaded?
     menuFont.loadFromFile("arial.ttf");
 
     // Set up the title

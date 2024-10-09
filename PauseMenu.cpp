@@ -110,15 +110,11 @@ void PauseMenu::renderMenu(sf::RenderWindow &window, int currentScore, int bestS
     window.display();
 }
 
-// Toggle between paused and unpaused states
-void PauseMenu::togglePause() {
-    isPaused = !isPaused;
-}
 
 // Check if the game is paused
-bool PauseMenu::isGamePaused() {
-    return isPaused;
-}
+//bool PauseMenu::isGamePaused() {
+ //   return isPaused;
+//}
 
 // Return the selected option
 int PauseMenu::getSelectedOption() {
