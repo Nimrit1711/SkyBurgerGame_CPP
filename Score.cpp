@@ -1,4 +1,5 @@
 #include "Score.h"
+#include "Burger.h"
 
 // Constructor
 Score::Score(int initialLives) {
@@ -15,7 +16,7 @@ Score::~Score() {
 
 // Update score based on the FoodItem's point value
 void Score::updateScore(FoodItem& food) {
-    currentScore += food.getPoints(); // check the get point function
+    currentScore += food.getPointValue(); // check the get point function
     if (lives <= 0) {
         gameOver = true;  // If lives are 0 or less, mark game as over
     }
