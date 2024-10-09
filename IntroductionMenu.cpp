@@ -20,7 +20,7 @@ IntroductionMenu::IntroductionMenu() {
         "2. Each game gives the player three health points. Collect non-edible\n"
         "   ingredients, and lose one health point.\n\n"
         "3. Once all three health points are lost, the game ends.\n\n"
-        "Press any key to continue"
+        "Press space to continue"
     );
     instructions.setCharacterSize(24);  // Smaller size for instructions
     instructions.setFillColor(sf::Color::White);
@@ -48,7 +48,7 @@ bool IntroductionMenu::handleInput(sf::RenderWindow &window) {
         if (event.type == sf::Event::Closed) {
             window.close();  // Close the window if requested
         }
-        if (event.type == sf::Event::KeyPressed) {
+        if (event.type == sf::Keyboard::Space) {
             return true;  // Return true if any key is pressed
         }
     }
