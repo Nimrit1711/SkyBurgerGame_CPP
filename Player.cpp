@@ -19,15 +19,15 @@ Player::Player(Burger* burger)
 void Player::handleInput(RenderWindow& window) {
     float speedMultiplier=1.0f;
     if (isPoisoned){
-        speedMultiplier=0.5f;
+        speedMultiplier=0.3f;
     }    
     
     if (Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        velocityX =-0.9*speedMultiplier; //move by 5 pixels
+        velocityX =-0.7*speedMultiplier; //move by 5 pixels
         isMovingRight=false;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        velocityX  =0.9*speedMultiplier; //move by 5 pixels
+        velocityX  =0.7*speedMultiplier; //move by 5 pixels
         isMovingRight=true;
     }  
 
