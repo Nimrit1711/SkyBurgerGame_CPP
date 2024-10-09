@@ -21,7 +21,7 @@
 using namespace sf;
 using namespace std;
 
-//compile code: g++ HazardsSpawnTest.cpp Player.cpp Burger.cpp FoodItem.cpp Tomato.cpp Patty.cpp Lettuce.cpp Bomb.cpp Hazards.cpp Cheese.cpp Onion.cpp -lsfml-graphics -lsfml-window -lsfml-system
+//compile code: g++ HazardsSpawnTest.cpp Player.cpp Burger.cpp FoodItem.cpp Tomato.cpp Patty.cpp Lettuce.cpp Bomb.cpp Hazards.cpp Cheese.cpp Onion.cpp Sock.cpp BananaPeel.cpp PoisonBottle.cpp -lsfml-graphics -lsfml-window -lsfml-system
 int main() {
     // Seeds random number generator
     srand(static_cast<unsigned int>(time(0)));

@@ -1,7 +1,8 @@
 #ifndef SCORE_H
 #define SCORE_H
 
-#include "fooditem.h"  // Access point values
+#include "FoodItem.h"
+ // Access point values
 
 class Score {
 private:

@@ -9,7 +9,7 @@ IntroductionMenu::IntroductionMenu() {
     title.setFont(titleFont);
     title.setString("Sky Burger");
     title.setCharacterSize(50);
-    title.setFillColor(sf::Color::White);
+    title.setFillColor(sf::Color(255,165,0));
 
     // Set up the instructions 
     instructions.setFont(menuFont);
@@ -23,12 +23,12 @@ IntroductionMenu::IntroductionMenu() {
         "Press space to continue"
     );
     instructions.setCharacterSize(24);  // Smaller size for instructions
-    instructions.setFillColor(sf::Color::White);
+    instructions.setFillColor(sf::Color(255,140,0));
 }
 
 // Render the introduction screen
 void IntroductionMenu::renderMenu(sf::RenderWindow &window) {
-    window.clear();
+    window.clear(sf::Color(197,234,250));
 
     // Position and render the title (centered at the top)
     title.setPosition(window.getSize().x / 2 - title.getGlobalBounds().width / 2, 50);
@@ -48,9 +48,10 @@ bool IntroductionMenu::handleInput(sf::RenderWindow &window) {
         if (event.type == sf::Event::Closed) {
             window.close();  // Close the window if requested
         }
-        if (event.type == sf::Keyboard::Space) {
-            return true;  // Return true if any key is pressed
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+            return true;  // Return true if space is pressed
         }
     }
     return false;
 }
+

@@ -10,7 +10,7 @@ int main() {
     PauseMenu pauseMenu;
 
     // Simulate starting the game and then pausing it
-    pauseMenu.togglePause();  // Set the game to paused state
+    //pauseMenu.togglePause();  // Set the game to paused state
 
     // Dummy score data for testing
     int currentScore = 10;
