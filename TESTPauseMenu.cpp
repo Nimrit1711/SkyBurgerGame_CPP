@@ -3,35 +3,50 @@
 #include <iostream>
 
 int main() {
-    // Create a window for testing the pause menu
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Test Pause Menu");
+    // Create an SFML window
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Pause Menu Test");
 
     // Create a PauseMenu object
     PauseMenu pauseMenu;
 
-    // Simulate starting the game and then pausing it
-    pauseMenu.togglePause();  // Set the game to paused state
-
-    // Dummy score data for testing
-    int currentScore = 10;
+    // Variables to simulate scores
+    int currentScore = 50;
     int bestScore = 100;
 
-    // Main loop to test the pause menu
+    // Set the game as paused manually for the test
+    bool isPaused = true; 
+    // Main game loop
     while (window.isOpen()) {
-        // Handle input and render the pause menu if the game is paused
+        // Handle input for the pause menu
         pauseMenu.handleInput(window);
-        pauseMenu.renderMenu(window, currentScore, bestScore);
 
-        // Check if "Resume" or "Restart" was selected
-        if (!pauseMenu.isGamePaused()) {
-            if (pauseMenu.getSelectedOption() == 0) {
-                std::cout << "Game Resumed!" << std::endl;
-            } else if (pauseMenu.getSelectedOption() == 1) {
-                std::cout << "Game Restarted!" << std::endl;
-                // Restart logic can be placed here
-            }
-            window.close();  // Close the window after confirming the selection
+        // Clear the window
+        window.clear();
+
+        // Render the pause menu if the game is paused
+        if (isPaused) {
+            pauseMenu.renderMenu(window, currentScore, bestScore);
         }
+
+        // Check if the user has confirmed an option
+        if (!pauseMenu.isGamePaused()) {
+            // Retrieve and print the confirmed option
+            PauseMenu::Option option = pauseMenu.getConfirmedOption();
+            if (option == PauseMenu::RESUME) {
+                std::cout << "Resume selected. Exiting pause menu.\n";
+                isPaused = false;  // Unpause the game (handled by another class in your game)
+            } else if (option == PauseMenu::RESTART) {
+                std::cout << "Restart selected.\n";
+                // Here you would restart the game logic
+                isPaused = false;
+            }
+
+            // Close the window after resume or restart for the test case
+            window.close();
+        }
+
+        // Display the window content
+        window.display();
     }
 
     return 0;

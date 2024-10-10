@@ -38,7 +38,7 @@ void SettingsMenu::handleInput(sf::RenderWindow &window) {
 
         // Handle arrow key navigation
         if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::Up) { //are we including w as well?
+            if (event.key.code == sf::Keyboard::Up) { 
                 // Move up the list
                 if (currentSelection > 0) {
                     currentSelection--;
