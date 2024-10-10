@@ -1,9 +1,11 @@
 #include "PauseMenu.h"
+#include <iostream>
+using namespace std;
 
 // Constructor for Pause Menu
 PauseMenu::PauseMenu() : currentSelection(0), isPaused(false) {
-    if (!menuFont.loadFromFile("arial.ttf")) {
-        // Handle font loading error
+    if (menuFont.loadFromFile("arial.ttf")) {
+        cout<<"text not loaded!"<<endl;
     }
 
     // Set up the title
@@ -54,7 +56,11 @@ void PauseMenu::handleInput(sf::RenderWindow &window) {
             } else if (event.key.code == sf::Keyboard::Enter) {
                 // Confirm the selected option (Resume or Restart)
                 if (menuOptions[currentSelection] == "Resume") {
+<<<<<<< HEAD
                     //togglePause();  // Unpause the game
+=======
+                    togglePause();  // Unpause the game
+>>>>>>> e1608f780d44ce1cebb21edeb19c58cb0387ca48
                 } else if (menuOptions[currentSelection] == "Restart") {
                     // Handle game restart 
                     //Do this in the game loop
@@ -109,12 +115,6 @@ void PauseMenu::renderMenu(sf::RenderWindow &window, int currentScore, int bestS
 
     window.display();
 }
-
-
-// Check if the game is paused
-//bool PauseMenu::isGamePaused() {
- //   return isPaused;
-//}
 
 // Return the selected option
 int PauseMenu::getSelectedOption() {

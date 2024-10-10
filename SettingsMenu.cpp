@@ -6,7 +6,7 @@ using namespace std;
 // Constructor for Settings Menu
 SettingsMenu::SettingsMenu() : currentSelection(1), selectionConfirmed(false) {  // Default to "Default" option
     if (!menuFont.loadFromFile("arial.ttf")) {
-        cout<<"text not loaded"<<endl;
+        cout<<"text not loaded!"<<endl;
     }
 
     // Set up the title

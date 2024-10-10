@@ -1,13 +1,20 @@
 #include "IntroductionMenu.h"
+#include <iostream>
+using namespace std;
 
 // Constructor for Introduction Menu
 IntroductionMenu::IntroductionMenu() {
-    titleFont.loadFromFile("SuperWater.ttf"); //should I include error for when font not loaded?
-    menuFont.loadFromFile("arial.ttf");
+    if (titleFont.loadFromFile("SuperWater.ttf")) {
+        cout<<"text not loaded!"<<endl;
+    }
+
+    if (menuFont.loadFromFile("arial.ttf")) {
+        cout<<"text not loaded!"<<endl;
+    }
 
     // Set up the title
     title.setFont(titleFont);
-    title.setString("Sky Burger");
+    title.setString("Sky Burger"); //only the title uses the title font
     title.setCharacterSize(50);
     title.setFillColor(sf::Color(255,165,0));
 
@@ -19,7 +26,8 @@ IntroductionMenu::IntroductionMenu() {
         "   One point per ingredient. Golden ingredients give an extra point.\n\n"
         "2. Each game gives the player three health points. Collect non-edible\n"
         "   ingredients, and lose one health point.\n\n"
-        "3. Once all three health points are lost, the game ends.\n\n"
+        "3. Once all three health points are lost, the game ends.\n"
+        "4. If the player collects a poison bottle, speed decreases. No lives will be lost \n"
         "Press space to continue"
     );
     instructions.setCharacterSize(24);  // Smaller size for instructions
