@@ -5,7 +5,13 @@
 #include <vector>
 #include <string>
 
+
+
 class PauseMenu {
+
+public:
+    enum Option { RESTART, RESUME};  // Pause options
+
 private:
     int currentSelection;  // Track which menu option is selected
     std::vector<std::string> menuOptions;  // The list of pause menu options (Resume, Restart)
@@ -14,14 +20,15 @@ private:
     sf::Text scoreText;  // Current score display
     sf::Text bestScoreText;  // Best score display
     bool isPaused;  // Whether the game is paused or not
+    Option SelectedOption;  // Store the confirmed option   
 
 public:
     PauseMenu();
     void handleInput(sf::RenderWindow &window);  // Handle user input (up/down keys, enter to confirm)
     void renderMenu(sf::RenderWindow &window, int currentScore, int bestScore);  // Render the pause menu
     bool isGamePaused();  // Return whether the game is paused
-    void togglePause();  // Toggle between paused and unpaused states
-    int getSelectedOption();  // Return the selected menu option
+    Option getConfirmedOption();  // Return the selected menu option
+
 };
 
 #endif
