@@ -1,13 +1,9 @@
 #ifndef SCORE_H
 #define SCORE_H
 
-<<<<<<< HEAD
 #include "FoodItem.h"
- // Access point values
-=======
-#include "fooditem.h"  // Access point values
 #include "Burger.h"
->>>>>>> e1608f780d44ce1cebb21edeb19c58cb0387ca48
+ // Access point values
 
 class Score {
 private:
