@@ -4,9 +4,9 @@
 Score::Score() : currentScore(0), highestScore(0) {}
 
 // Update the score based on the collected food item
-void Score::updateScore(const FoodItem &food) {
-    // Use FoodItem's getPointValue() to add points to the current score
-    currentScore += food.getPointValue();
+void Score::updateScore(const Burger &score) {
+    // Use Burger's total point score for points keep track of the current score
+    currentScore == score.getTotalPoints();
 }
 
 // Update the highest score if the current score exceeds it

@@ -26,7 +26,8 @@ IntroductionMenu::IntroductionMenu() {
         "   One point per ingredient. Golden ingredients give an extra point.\n\n"
         "2. Each game gives the player three health points. Collect non-edible\n"
         "   ingredients, and lose one health point.\n\n"
-        "3. Once all three health points are lost, the game ends.\n\n"
+        "3. Once all three health points are lost, the game ends.\n"
+        "4. If the player collects a poison bottle, speed decreases. No lives will be lost \n"
         "Press space to continue"
     );
     instructions.setCharacterSize(24);  // Smaller size for instructions

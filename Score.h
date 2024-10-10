@@ -2,6 +2,7 @@
 #define SCORE_H
 
 #include "fooditem.h"  // Access point values
+#include "Burger.h"
 
 class Score {
 private:
@@ -10,7 +11,7 @@ private:
 
 public:
     Score();
-    void updateScore(const FoodItem &food);  // Update score based on ingredient points
+    void updateScore(const Burger &score);  // Update score based accumilated burger
     void updateHighestScore();  // Update highest score if the current score surpasses it
     int getCurrentScore() const;  // Get the current score
     int getHighestScore() const;  // Get the highest score

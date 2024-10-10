@@ -57,7 +57,7 @@ void PauseMenu::handleInput(sf::RenderWindow &window) {
                 // Confirm the selected option (Resume or Restart)
                 if (menuOptions[currentSelection] == "Resume") {
                     togglePause();  // Unpause the game
-                //} else if (menuOptions[currentSelection] == "Restart") {
+                } else if (menuOptions[currentSelection] == "Restart") {
                     // Handle game restart 
                     //Do this in the game loop
                     
