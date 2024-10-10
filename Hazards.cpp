@@ -1,7 +1,7 @@
 #include "Hazards.h"
 #include <iostream>
     Hazards:: Hazards(const string& textureFile, float speed):hazardSpeed(speed), isCaught(false){
-        if (!hazardTexture.loadFromFile(textureFile)){
+    if (!hazardTexture.loadFromFile(textureFile)){
             cout<<"file not loaded"<<endl;
         }
         hazardSprite.setTexture(hazardTexture);
@@ -33,6 +33,7 @@
         FloatRect collisionBox(topOfStack.x, topOfStack.y - 5, playerWidth, 5);
         if (hazardBounds.intersects(collisionBox)) {
             setIsCaught(true);
+            burger.startFlashing(1.0f);
         }
             if (!player.isAlive()) {
                 cout<<"0 lives left. game over! "<<endl;

@@ -15,13 +15,14 @@
 #include "Cheese.h"
 #include "Hazards.h"
 #include "PoisonBottle.h"
+#include "GoldenIngredient.h"
 #include "Bomb.h"
 #include "BananaPeel.h"
 #include "Sock.h"
 using namespace sf;
 using namespace std;
 
-//compile code: g++ HazardsSpawnTest.cpp Player.cpp Burger.cpp FoodItem.cpp Tomato.cpp Patty.cpp Lettuce.cpp Bomb.cpp Hazards.cpp Cheese.cpp Onion.cpp -lsfml-graphics -lsfml-window -lsfml-system
+//compile code: g++ HazardsSpawnTest.cpp Player.cpp Burger.cpp FoodItem.cpp Tomato.cpp Patty.cpp Lettuce.cpp Bomb.cpp Hazards.cpp Cheese.cpp Onion.cpp Sock.cpp BananaPeel.cpp PoisonBottle.cpp -lsfml-graphics -lsfml-window -lsfml-system
 int main() {
     // Seeds random number generator
     srand(static_cast<unsigned int>(time(0)));
@@ -64,7 +65,7 @@ int main() {
             float randomX = static_cast<float>(rand() % window.getSize().x);
 
             // Randomly select a food type to spawn
-            int randomSpawnType = rand() % 9; 
+            int randomSpawnType = rand() % 10; 
 
             FallingObjects* newItem = nullptr;
             if (randomSpawnType == 0) {
@@ -83,7 +84,9 @@ int main() {
                 newItem = new Sock();
             } else if (randomSpawnType==7){
                 newItem = new BananaPeel();
-            } else {
+            } else if(randomSpawnType==8){
+                newItem = new GoldenIngredient();
+            }else {
                 newItem = new PoisonBottle();
             }
 
@@ -113,9 +116,9 @@ int main() {
                     } else {
                         player.loseLife();    //if its the other hazards, lose a life. 
                     }
-                    //burger.startFlashing(0.03f);
+                    //burger.startFlashing(1.f);
                     delete *it; // delete the dynamically allocated object                  
-                    it = fallingItems.erase(it); // remove graphic
+                    it = fallingItems.erase(it); // removes graphic
                     if (!player.isAlive()){  // if player is not alive. end the game
                         gameRunning = false;
                         std::cout<<"Total Points: "<<burger.getTotalPoints()<<std::endl;

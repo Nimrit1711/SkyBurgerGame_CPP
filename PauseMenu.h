@@ -27,7 +27,12 @@ public:
     void handleInput(sf::RenderWindow &window);  // Handle user input (up/down keys, enter to confirm)
     void renderMenu(sf::RenderWindow &window, int currentScore, int bestScore);  // Render the pause menu
     bool isGamePaused();  // Return whether the game is paused
+<<<<<<< HEAD
     Option getConfirmedOption() const { return SelectedOption; }     // Return the confirmed option
+=======
+    //void togglePause();  // Toggle between paused and unpaused states
+    int getSelectedOption();  // Return the selected menu option
+>>>>>>> 6e39bf8870e72296084de2126ad34185c0ec824b
 };
 
 

@@ -27,8 +27,8 @@ public:
     int getTotalPoints() const;
     Vector2f getTopOfStack(const Vector2f& playerPosition) const;
     void moveDown(float distance);
-    //void startFlashing(float duration); 
-    //void updateFlash();
+    void startFlashing(float duration); 
+    void updateFlash();
     
 };
 

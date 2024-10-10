@@ -14,7 +14,8 @@ int main() {
     int bestScore = 100;
 
     // Set the game as paused manually for the test
-    bool isPaused = true; 
+    bool isPaused = true;  // This simulates the pause state set by another class
+
     // Main game loop
     while (window.isOpen()) {
         // Handle input for the pause menu

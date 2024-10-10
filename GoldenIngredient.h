@@ -4,15 +4,14 @@
 #include "FoodItem.h"
 
 class GoldenIngredient: public FoodItem{
-
-    public:
-
     private:
+    Texture goldenTexture;
+    public:
     GoldenIngredient();
-
-
-
+    FoodItem* create() const override;
 };
+
+
 
 
 
