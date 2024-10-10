@@ -14,7 +14,7 @@ int main() {
     int bestScore = 100;
 
     // Set the game as paused manually for the test
-    bool isPaused = true;  // This simulates the pause state set by another class
+    bool isPaused = true;
 
     // Main game loop
     while (window.isOpen()) {
@@ -35,10 +35,10 @@ int main() {
             PauseMenu::Option option = pauseMenu.getConfirmedOption();
             if (option == PauseMenu::RESUME) {
                 std::cout << "Resume selected. Exiting pause menu.\n";
-                isPaused = false;  // Unpause the game (handled by another class in your game)
+                isPaused = false; 
             } else if (option == PauseMenu::RESTART) {
                 std::cout << "Restart selected.\n";
-                // Here you would restart the game logic
+
                 isPaused = false;
             }
 
