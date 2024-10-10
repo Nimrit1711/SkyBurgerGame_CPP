@@ -15,6 +15,7 @@
 #include "Cheese.h"
 #include "Hazards.h"
 #include "PoisonBottle.h"
+#include "GoldenIngredient.h"
 #include "Bomb.h"
 #include "BananaPeel.h"
 #include "Sock.h"
@@ -64,7 +65,7 @@ int main() {
             float randomX = static_cast<float>(rand() % window.getSize().x);
 
             // Randomly select a food type to spawn
-            int randomSpawnType = rand() % 9; 
+            int randomSpawnType = rand() % 10; 
 
             FallingObjects* newItem = nullptr;
             if (randomSpawnType == 0) {
@@ -83,7 +84,9 @@ int main() {
                 newItem = new Sock();
             } else if (randomSpawnType==7){
                 newItem = new BananaPeel();
-            } else {
+            } else if(randomSpawnType==8){
+                newItem = new GoldenIngredient();
+            }else {
                 newItem = new PoisonBottle();
             }
 

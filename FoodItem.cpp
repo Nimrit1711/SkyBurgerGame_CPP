@@ -7,7 +7,7 @@
 FoodItem::FoodItem(int points, float speed):
     pointValue(points), fallSpeed(speed), isCaught(false) {
     foodShape.setSize(Vector2f(100.f, 20.f));
-    foodShape.setFillColor(Color::Green); 
+    //foodShape.setFillColor(Color::Green); 
     }
 
 //updates foodItems position

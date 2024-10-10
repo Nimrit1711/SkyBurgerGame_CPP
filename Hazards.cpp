@@ -1,7 +1,7 @@
 #include "Hazards.h"
 #include <iostream>
     Hazards:: Hazards(const string& textureFile, float speed):hazardSpeed(speed), isCaught(false){
-        if (!hazardTexture.loadFromFile(textureFile)){
+    if (!hazardTexture.loadFromFile(textureFile)){
             cout<<"file not loaded"<<endl;
         }
         hazardSprite.setTexture(hazardTexture);
