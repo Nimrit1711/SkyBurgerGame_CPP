@@ -85,17 +85,19 @@ void Game::spawnObjects() {
         newObject = new Onion();
     } else if (randomType == 4) {
         newObject = new Patty();
+    } else if( randomType==5){
+        newObject = new GoldenIngredient();
     }
-    // Spawn hazards
-    else if (randomType == 5) {
+       // Spawn hazards
+    else if (randomType == 6) {
         newObject = new BananaPeel();
-    } else if (randomType == 6) {
-        newObject = new Bomb();
     } else if (randomType == 7) {
+        newObject = new Bomb();
+    } else if (randomType == 8) {
         newObject = new PoisonBottle();
     } else {
         newObject = new Sock();
-    }
+    } 
 
     if (newObject) {
         newObject->setPosition(sf::Vector2f(rand() % window.getSize().x, 0.0f));
