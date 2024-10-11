@@ -4,11 +4,11 @@ using namespace std;
 
 // Constructor for Introduction Menu
 IntroductionMenu::IntroductionMenu() {
-    if (titleFont.loadFromFile("SuperWater.ttf")) {
+    if (!titleFont.loadFromFile("SuperWater.ttf")) {
         cout<<"text not loaded!"<<endl;
     }
 
-    if (menuFont.loadFromFile("arial.ttf")) {
+    if (!menuFont.loadFromFile("arial.ttf")) {
         cout<<"text not loaded!"<<endl;
     }
 
