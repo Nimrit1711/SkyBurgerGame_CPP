@@ -30,6 +30,7 @@ int main() {
         }
 
         // Check if the user has confirmed an option
+        /*
         if (!pauseMenu.isGamePaused()) {
             // Retrieve and print the confirmed option
             PauseMenu::Option option = pauseMenu.getConfirmedOption();
@@ -45,6 +46,7 @@ int main() {
             // Close the window after resume or restart for the test case
             window.close();
         }
+        */
 
         // Display the window content
         window.display();

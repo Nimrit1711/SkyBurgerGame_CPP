@@ -73,7 +73,7 @@ void PauseMenu::handleInput(sf::RenderWindow &window) {
 
 // Render the pause menu
 void PauseMenu::renderMenu(sf::RenderWindow &window, int currentScore, int bestScore) {
-    if (!isPaused) return;  // Only render when paused
+    //if (!isPaused) return;  // Only render when paused
 
     window.clear();
 
@@ -120,3 +120,9 @@ void PauseMenu::renderMenu(sf::RenderWindow &window, int currentScore, int bestS
 PauseMenu::Option PauseMenu::getConfirmedOption() const {
     return SelectedOption;  // Return the confirmed option stored in the class
 }
+
+/*
+bool PauseMenu::isGamePaused() const {
+    return isPaused;  // Return whether the game is paused
+}
+*/
