@@ -8,6 +8,7 @@
 #include <iostream> 
 #include <ctime>   
 #include "Player.h"
+#include "Score.h"
 #include "FoodItem.h"
 #include "FallingObjects.h"
 #include "Burger.h"
@@ -28,9 +29,13 @@ using namespace std;
 
 class Game {
 public:
-    Game();
+    Game(GameMode::Difficulty selectedDifficulty, RenderWindow& existingWindow);
     void run(); // Main game loop
     ~Game();
+    bool isGameOver() const;
+    int getCurrentScore() const;
+    const Score& getScore() const;
+
 
 private:
     GameMode* gameMode; // pointer to the GameMode selection
@@ -38,8 +43,10 @@ private:
     void update(float deltaTime);
     void render();
     void spawnFallingObjects(bool isHazard);
+    
 
-    RenderWindow window;
+    Score score;
+    RenderWindow& window;
     Player player;
     Burger burger;
     vector<FallingObjects*> fallingItems; //lists of falling items 
@@ -51,6 +58,7 @@ private:
     bool gameRunning; // checks if game is running/player is alive
     const float halfWindowHeight; // half window size for camera control
     bool isHazard; //checks if falling object is hazard or foodItem
+    
 };
 
 #endif 

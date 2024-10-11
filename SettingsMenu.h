@@ -17,6 +17,7 @@ private:
     sf::Font menuFont;  // Font for the text
     sf::Text prompt;  // Text prompt to continue
     bool selectionConfirmed;  // Whether the selection is confirmed
+    
 
 public:
     SettingsMenu();
@@ -24,6 +25,8 @@ public:
     void renderMenu(sf::RenderWindow &window);  // Render the settings menu
     Difficulty getConfirmedDifficulty();  // Return the confirmed difficulty
     bool isSelectionConfirmed();  // Check if selection has been confirmed
+    bool backToIntro; // going back to this menu 
+    bool isGoingBackToIntro() const; // to dectect if player want to go back
 };
 
 #endif

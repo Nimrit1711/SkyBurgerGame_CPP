@@ -1,6 +1,5 @@
 #include "PauseMenu.h"
 #include <iostream>
-using namespace std;
 
 // Constructor for Pause Menu
 PauseMenu::PauseMenu() : currentSelection(0), isPaused(false) {
@@ -12,7 +11,7 @@ PauseMenu::PauseMenu() : currentSelection(0), isPaused(false) {
     title.setFont(menuFont);
     title.setString("Pause");
     title.setCharacterSize(50);
-    title.setFillColor(sf::Color::White);
+    title.setFillColor(Color::White);
 
     // Add menu options
     menuOptions = {"Resume", "Restart"};
@@ -20,37 +19,37 @@ PauseMenu::PauseMenu() : currentSelection(0), isPaused(false) {
     // Set up score and best score texts
     scoreText.setFont(menuFont);
     scoreText.setCharacterSize(30);
-    scoreText.setFillColor(sf::Color::White);
+    scoreText.setFillColor(Color::White);
 
     bestScoreText.setFont(menuFont);
     bestScoreText.setCharacterSize(30);
-    bestScoreText.setFillColor(sf::Color::White);
+    bestScoreText.setFillColor(Color::White);
 }
 
 // Handle input for navigating the pause menu
-void PauseMenu::handleInput(sf::RenderWindow &window) {
+void PauseMenu::handleInput(RenderWindow &window) {
     if (!isPaused) return;  // Only handle input when paused
 
-    sf::Event event;
+    Event event;
     while (window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
+        if (event.type == Event::Closed) {
             window.close();  // Close the window if requested
         }
 
         // Handle key press events using switch statements for better readability
-        if (event.type == sf::Event::KeyPressed) {
+        if (event.type == Event::KeyPressed) {
             switch (event.key.code) {
-                case sf::Keyboard::Up:
+                case Keyboard::Up:
                     // Move up the list
                     currentSelection = (currentSelection > 0) ? currentSelection - 1 : menuOptions.size() - 1;
                     break;
 
-                case sf::Keyboard::Down:
+                case Keyboard::Down:
                     // Move down the list
                     currentSelection = (currentSelection < menuOptions.size() - 1) ? currentSelection + 1 : 0;
                     break;
 
-                case sf::Keyboard::Enter:
+                case Keyboard::Enter:
                     // Use switch to handle selected options
                     switch (currentSelection) {
                         case 0:  // Option 1: Resume
@@ -72,9 +71,8 @@ void PauseMenu::handleInput(sf::RenderWindow &window) {
 }
 
 // Render the pause menu
-void PauseMenu::renderMenu(sf::RenderWindow &window, int currentScore, int bestScore) {
-    //if (!isPaused) return;  // Only render when paused
-
+void PauseMenu:: renderMenu(RenderWindow &window, const Score& score){
+    
     window.clear();
 
     // Render the title (centered at the top)
@@ -82,30 +80,30 @@ void PauseMenu::renderMenu(sf::RenderWindow &window, int currentScore, int bestS
     window.draw(title);
 
     // Render the current score
-    scoreText.setString("Score: " + std::to_string(currentScore));
+    scoreText.setString("Score: " + std::to_string(score.getCurrentScore()));
     scoreText.setPosition(350, 150);
     window.draw(scoreText);
 
     // Render the best score
-    bestScoreText.setString("Best: " + std::to_string(bestScore));
+    bestScoreText.setString("Best: " + std::to_string(score.getHighestScore()));
     bestScoreText.setPosition(350, 200);
     window.draw(bestScoreText);
 
     // Render the menu options
     for (size_t i = 0; i < menuOptions.size(); ++i) {
-        sf::Text menuItem;
+        Text menuItem;
         menuItem.setFont(menuFont);
         menuItem.setString(menuOptions[i]);
         menuItem.setCharacterSize(40);
 
         // Highlight the currently selected option
         if (i == currentSelection) {
-            menuItem.setFillColor(sf::Color::Black);
-            menuItem.setStyle(sf::Text::Bold);
-            menuItem.setOutlineColor(sf::Color::White);
+            menuItem.setFillColor(Color::Black);
+            menuItem.setStyle(Text::Bold);
+            menuItem.setOutlineColor(Color::White);
             menuItem.setOutlineThickness(2.0f);
         } else {
-            menuItem.setFillColor(sf::Color::White);
+            menuItem.setFillColor(Color::White);
         }
 
         // Set position of the menu items
@@ -121,8 +119,4 @@ PauseMenu::Option PauseMenu::getConfirmedOption() const {
     return SelectedOption;  // Return the confirmed option stored in the class
 }
 
-/*
-bool PauseMenu::isGamePaused() const {
-    return isPaused;  // Return whether the game is paused
-}
-*/
+

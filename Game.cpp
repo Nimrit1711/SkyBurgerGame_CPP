@@ -3,11 +3,11 @@
 #include <iostream> 
 #include <ctime>
 
-Game::Game() : window(sf::VideoMode(900, 800), "Sky Burger Game"),
+Game::Game(GameMode::Difficulty selectedDifficulty, RenderWindow& existingWindow) : window(existingWindow),
                player(&burger), spawnTimer(0.0f), spawnInterval(0.5f),hazardSpawnTimer(0.0f), cameraMoveSpeed(1.0f),
                gameRunning(true), isHazard(false), halfWindowHeight(window.getSize().y / 2) {
                 srand(static_cast<unsigned int>(time(0)));
-                gameMode = new GameMode(GameMode::Difficulty::Easy); // Seed random number generator
+                gameMode = new GameMode(selectedDifficulty); // Seed random number generator
 }
 
 Game::~Game() {
@@ -85,6 +85,7 @@ void Game::update(float deltaTime) {
                     //burger.startFlashing(1.f);
                     delete *it; // delete the dynamically allocated object                  
                     it = fallingItems.erase(it); // removes graphic
+                    
                     if (!player.isAlive()){  // if player is not alive. end the game
                         gameRunning = false;
                         std::cout<<"Total Points: "<<burger.getTotalPoints()<<std::endl;
@@ -107,7 +108,7 @@ void Game::update(float deltaTime) {
 
 // renders all of the objects/windows graphics 
 void Game::render() {
-    window.clear(sf::Color(197, 234, 250));
+    window.clear(Color(197, 234, 250));
 
     // Render falling items
     for (auto& item : fallingItems) {
@@ -159,3 +160,16 @@ void Game::spawnFallingObjects(bool isHazard) {
     fallingItems.push_back(newItem); // Adds the new item to the vector
 
 }
+
+
+bool Game::isGameOver() const {
+    return !gameRunning;  // If gameRunning is false, the game is over
+}
+
+int Game:: getCurrentScore() const {
+        return burger.getTotalPoints();
+    }
+
+const Score& Game::getScore() const {
+     return score; 
+     }

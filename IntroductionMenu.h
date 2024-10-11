@@ -12,11 +12,12 @@ private:
     sf::Text instructions; // Instructions for the user
     sf::Font menuFont;     // Font for the text
     sf::Font titleFont;     // Font for the text
-
+    
 public:
     IntroductionMenu();
     void renderMenu(sf::RenderWindow &window);  // Render the introduction menu
     bool handleInput(sf::RenderWindow &window); // Handle key press to continue
+    
 };
 
 #endif 
