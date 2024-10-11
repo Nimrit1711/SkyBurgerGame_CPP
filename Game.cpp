@@ -4,8 +4,8 @@
 #include <ctime>
 
 Game::Game() : window(sf::VideoMode(900, 800), "Sky Burger Game"),
-               player(&burger), spawnTimer(0.0f), spawnInterval(0.5f), cameraMoveSpeed(1.0f),
-               gameRunning(true), halfWindowHeight(window.getSize().y / 2) {
+               player(&burger), spawnTimer(0.0f), spawnInterval(0.5f),hazardSpawnTimer(0.0f), cameraMoveSpeed(1.0f),
+               gameRunning(true), isHazard(false), halfWindowHeight(window.getSize().y / 2) {
                 srand(static_cast<unsigned int>(time(0)));
                 gameMode = new GameMode(GameMode::Difficulty::Easy); // Seed random number generator
 }
@@ -44,15 +44,25 @@ void Game::processEvents() {
 // handles players input, position and the rest of the games mechanics 
 void Game::update(float deltaTime) {
     float spawnInterval = gameMode->getSpawnRate();
+    float hazardSpawnInterval = gameMode->getHazardSpawnRate();
     float fallingSpeed = gameMode->getFallingSpeed();
     player.handleInput(window);
     player.update(deltaTime, window);
 
     // Spawn new items
     spawnTimer += deltaTime;
+    hazardSpawnTimer += deltaTime; // Increments hazard timer
+
+    // Check if it's time to spawn a food item
     if (spawnTimer >= spawnInterval) {
         spawnTimer = 0.0f; // Reset spawn timer
-        spawnFallingObjects();
+        spawnFallingObjects(isHazard); // Spawn a food item
+    }
+
+    // Check if it's time to spawn a hazard
+    if (hazardSpawnTimer >= hazardSpawnInterval) {
+        hazardSpawnTimer = 0.0f; // Reset hazard timer
+        spawnFallingObjects(true); // Pass true to spawn a hazard
     }
 
     for (auto it = fallingItems.begin(); it != fallingItems.end(); ) { 
@@ -110,36 +120,42 @@ void Game::render() {
 }
 
 // spawns food items food and objects 
-void Game::spawnFallingObjects() {
+void Game::spawnFallingObjects(bool isHazard) {
     // Generate random X position within window width
     float randomX = static_cast<float>(rand() % window.getSize().x);
     
-    // Randomly select a food type to spawn
-    int randomSpawnType = rand() % 10;
-
-    FallingObjects* newItem = nullptr;
-    if (randomSpawnType == 0) {
-        newItem = new Lettuce();
-    } else if (randomSpawnType == 1) {
-        newItem = new Tomato();
-    } else if (randomSpawnType == 2) {
-        newItem = new Patty();
-    } else if (randomSpawnType == 3) {
-        newItem = new Cheese();
-    } else if (randomSpawnType == 4) {
-        newItem = new Onion();
-    } else if (randomSpawnType == 5) {
-        newItem = new Bomb();
-    } else if (randomSpawnType == 6) {
-        newItem = new Sock();
-    } else if (randomSpawnType == 7) {
-        newItem = new BananaPeel();
-    } else if (randomSpawnType == 8) {
-        newItem = new GoldenIngredient();
-    } else {
-        newItem = new PoisonBottle();
+     FallingObjects* newItem = nullptr;
+    
+    // If spawning a hazard
+    if (isHazard) {
+        int randomHazardType = rand() % 3; // Adjust this based on how many hazards you have
+        if (randomHazardType == 0) {
+            newItem = new Bomb();
+        } else if (randomHazardType == 1) {
+            newItem = new Sock();
+        } else {
+            newItem = new PoisonBottle();
+        }
+    } else { // If spawning a food item
+        int randomFoodType = rand() % 6;
+        if (randomFoodType == 0) {
+            newItem = new Lettuce();
+        } else if (randomFoodType == 1) {
+            newItem = new Tomato();
+        } else if (randomFoodType == 2) {
+            newItem = new Patty();
+        } else if (randomFoodType == 3) {
+            newItem = new Cheese();
+        } else if (randomFoodType == 4) {
+            newItem = new Onion();
+        } else {
+            newItem = new GoldenIngredient();
+        }
+            
+        
     }
 
-    newItem->setPosition(sf::Vector2f(randomX, 0.0f));
+    newItem->setPosition(Vector2f(randomX, 0.0f));
     fallingItems.push_back(newItem); // Adds the new item to the vector
+
 }

@@ -37,18 +37,20 @@ private:
     void processEvents();
     void update(float deltaTime);
     void render();
-    void spawnFallingObjects();
+    void spawnFallingObjects(bool isHazard);
 
     RenderWindow window;
     Player player;
     Burger burger;
     vector<FallingObjects*> fallingItems; //lists of falling items 
 
-    float spawnTimer; 
+    float spawnTimer;  // timer for food 
+    float hazardSpawnTimer; // timer for hazards
     float spawnInterval;
     const float cameraMoveSpeed;
     bool gameRunning; // checks if game is running/player is alive
     const float halfWindowHeight; // half window size for camera control
+    bool isHazard; //checks if falling object is hazard or foodItem
 };
 
 #endif 

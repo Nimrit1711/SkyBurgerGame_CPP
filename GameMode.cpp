@@ -25,19 +25,19 @@ void GameMode::setGameMode(Difficulty mode) {
     switch (mode) {
         // if mode is easy:
         case Difficulty::Easy:
-            fallingSpeed = 100.0f; // Lower falling speed
-            spawnRate = 6.0f;       // Spawns every 1.5 seconds
-            hazardSpawnRate = 0.5f; // Fewer hazards
+            fallingSpeed = 180.0f; // Lower falling speed
+            spawnRate = 1.0f;       // food Spawns every 1 seconds
+            hazardSpawnRate = 3.0f; // hazard spawns every 3 seconds
             break;
         case Difficulty::Normal:
             fallingSpeed = 200.0f; // Normal falling speed
-            spawnRate = 3.0f;       // Spawns every 1.0 seconds
-            hazardSpawnRate = 1.0f; // Normal hazards
+            spawnRate = 1.0f;       // food Spawns every 1 second
+            hazardSpawnRate = 2.0f; // hazard spawns every 2 seconds
             break;
         case Difficulty::Hard:
-            fallingSpeed = 230.0f; // Increased falling speed
-            spawnRate = 0.75f;      // Spawns every 0.75 seconds
-            hazardSpawnRate = 2.0f; // More hazards
+            fallingSpeed = 220.0f; // faster falling speed
+            spawnRate = 1.0f;      // food Spawns every 1 second
+            hazardSpawnRate = 0.5f; // hazard spawns every 0.5 seconds
             break;       
     }
 }
