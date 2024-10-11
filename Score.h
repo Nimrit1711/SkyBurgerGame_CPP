@@ -31,4 +31,4 @@ public:
     void resetScore(SettingsMenu::Difficulty mode);
 };
 
-#endif // SCORE_H
+#endif
