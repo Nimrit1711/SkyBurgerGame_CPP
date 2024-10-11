@@ -15,7 +15,7 @@ Burger:: ~Burger(){
 // if collided, adds ingredient to the burger pile
 void Burger::addIngredient(FoodItem* ingredient) {
     originalColors.push_back(ingredient->getFoodColor()); //stores the ingredients original colour
-    totalPoints += ingredient->getPointValue(); // Updates the total points
+    incrementScore(ingredient->getPointValue());  // calculates points on the burger
     burgerPile.push_back(move(ingredient)); // Stores the ingredients
 }
 
@@ -54,6 +54,11 @@ void Burger::render(RenderWindow& window, const Vector2f& playerPosition,  const
 
 int Burger::getTotalPoints() const {
     return totalPoints; 
+}
+
+
+void Burger::incrementScore(int points) {
+    totalPoints += points;
 }
 
 //returns the position of the ingredient on the top of the stack

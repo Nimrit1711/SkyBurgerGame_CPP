@@ -25,6 +25,7 @@ public:
     void addIngredient(FoodItem* ingredient);
     void render(RenderWindow& window, const Vector2f& playerPosition, const Player& player);
     int getTotalPoints() const;
+    void incrementScore(int points);
     Vector2f getTopOfStack(const Vector2f& playerPosition) const;
     void moveDown(float distance);
     void startFlashing(float duration); 

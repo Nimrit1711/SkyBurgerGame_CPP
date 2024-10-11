@@ -7,7 +7,7 @@
 FoodItem::FoodItem(int points, float speed):
     pointValue(points), fallSpeed(speed), isCaught(false) {
     foodShape.setSize(Vector2f(100.f, 20.f));
-    //foodShape.setFillColor(Color::Green); 
+     
     }
 
 //updates foodItems position
@@ -25,16 +25,16 @@ void FoodItem::checkCollision(Player& player, Burger& burger) {
      if (getIsCaught()) {
         return; //skips if added to the burger pile
     }
-    Vector2f playerPosition=player.getPlayerPosition();
-    Vector2f topOfStack = burger.getTopOfStack(playerPosition);
-    FloatRect foodBounds = getGlobalBounds();
+    Vector2f playerPosition=player.getPlayerPosition(); // gets player position
+    Vector2f topOfStack = burger.getTopOfStack(playerPosition); // gets top of stack 
+    FloatRect foodBounds = getGlobalBounds(); // gets bounds of the falling food item 
 
-    if (foodBounds.intersects(FloatRect(topOfStack.x, topOfStack.y, foodBounds.width, foodBounds.height))) {
+    if (foodBounds.intersects(FloatRect(topOfStack.x, topOfStack.y, foodBounds.width, foodBounds.height))) { // if food does hit player
         // Add the current FoodItem to the burger        
-        burger.addIngredient(create()); // burger uses raw pointers 
-        setIsCaught(true);
-        fallSpeed = 0.0f;
-    }       
+        burger.addIngredient(create());  // creates a new ingredient and adds to stack
+        setIsCaught(true);  // set to is caught
+        fallSpeed = 0.0f; //stop the food from falling
+    }        
 }
 
 // bool flag if the item is caught
