@@ -1,130 +1,74 @@
 #include "Game.h"
-#include <iostream>
+#include <cstdlib> 
+#include <iostream> 
+#include <ctime>
 
-
-// Constructor initializes game components
-Game::Game() : window(sf::VideoMode(900, 800), "SkyBurger"),
+Game::Game() : window(sf::VideoMode(900, 800), "Sky Burger Game"),
                player(&burger),
-               gameMode("default"),  // Default game mode
-               gameRunning(true),
-               spawnTimer(0.0f) {
-    initialize();
+               spawnTimer(0.0f),
+               spawnInterval(0.5f), 
+               cameraMoveSpeed(1.0f),
+               gameRunning(true) {
+    srand(static_cast<unsigned int>(time(0))); // Seed random number generator
 }
 
-// Set the hazard spawn rate based on the game mode
-void Game::setHazardSpawnRate(int rate) {
-    hazardSpawnRate = rate;
-}
-
-// Set the falling speed multiplier based on the game mode
-void Game::setFallSpeedMultiplier(int multiplier) {
-    fallSpeedMultiplier = multiplier;
-}
-
-// Initializes game components
-void Game::initialize() {
-    srand(static_cast<unsigned int>(time(0)));  // Seed random number generator
-    
-    // Example: Set to default mode (could be changed to hard/easy later by player input)
-    gameMode.setGameMode("default");
-
-    // Apply the game mode to adjust spawn rate and fall speed
-    gameMode.applyMode(*this);
-}
-
-// Main game loop
+//runs the main game loop 
 void Game::run() {
+    Clock clock;
+    // while game is open and player is alive
     while (window.isOpen() && gameRunning) {
-        handleInput();               // Process user input
         float deltaTime = clock.restart().asSeconds();
-        update(deltaTime);           // Update the game state
-        render();                    // Render all game objects
+        processEvents();
+        update(deltaTime);
+        render(); // render all of the graphics
+    }
+
+    // deallocate falling items
+    for (auto& item : fallingItems) {
+        delete item;
     }
 }
 
-// Handles player input
-void Game::handleInput() {
+// handles if window is still open
+void Game::processEvents() {
     sf::Event event;
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             window.close();
         }
     }
-
-    player.handleInput(window);  // Handle player movement (left and right)
 }
 
-// Updates the game state
+// handles players input, position and the rest of the games mechanics 
 void Game::update(float deltaTime) {
+    player.handleInput(window);
     player.update(deltaTime, window);
 
-    // Timer to control the spawn rate
+    // Spawn new items
     spawnTimer += deltaTime;
-    if (spawnTimer >= gameMode.getHazardSpawnRate()) {
-        spawnObjects();  // Spawn new food items or hazards
-        spawnTimer = 0.0f;
+    if (spawnTimer >= spawnInterval) {
+        spawnTimer = 0.0f; // Reset spawn timer
+        spawnFallingObjects();
     }
 
-    // Check for collisions between player, food, and hazards
-    checkAllCollisions();
-}
-
-// Spawns new food items and hazards
-void Game::spawnObjects() {
-    int randomType = rand() % 9;  // Choose a random type of object
-    FallingObjects* newObject = nullptr;
-
-    // Spawn food items
-    if (randomType == 0) {
-        newObject = new Lettuce();
-    } else if (randomType == 1) {
-        newObject = new Tomato();
-    } else if (randomType == 2) {
-        newObject = new Cheese();
-    } else if (randomType == 3) {
-        newObject = new Onion();
-    } else if (randomType == 4) {
-        newObject = new Patty();
-    } else if( randomType==5){
-        newObject = new GoldenIngredient();
-    }
-       // Spawn hazards
-    else if (randomType == 6) {
-        newObject = new BananaPeel();
-    } else if (randomType == 7) {
-        newObject = new Bomb();
-    } else if (randomType == 8) {
-        newObject = new PoisonBottle();
-    } else {
-        newObject = new Sock();
-    } 
-
-    if (newObject) {
-        newObject->setPosition(sf::Vector2f(rand() % window.getSize().x, 0.0f));
-        fallingItems.push_back(std::unique_ptr<FallingObjects>(newObject));
-    }
-}
-
-// Checks for collisions between the player and falling objects
-void Game::checkAllCollisions() {
+    // Update falling items and check for collisions
     for (auto it = fallingItems.begin(); it != fallingItems.end();) {
-        (*it)->update(clock.restart().asSeconds());
-
-        if (auto foodItem = dynamic_cast<FoodItem*>(it->get())) {
+        (*it)->update(deltaTime);
+        if (auto foodItem = dynamic_cast<FoodItem*>(*it)) {
             foodItem->checkCollision(player, burger);
             if (foodItem->getIsCaught()) {
-                score.updateScore(*foodItem);  // Update score
                 it = fallingItems.erase(it);
                 continue;
             }
-        } else if (auto hazard = dynamic_cast<Hazards*>(it->get())) {
+        } else if (auto hazard = dynamic_cast<Hazards*>(*it)) {
             hazard->checkCollision(player, burger);
             if (hazard->getIsCaught()) {
                 player.loseLife();
-                it = fallingItems.erase(it);
+                delete *it; // delete the dynamically allocated object
+                it = fallingItems.erase(it); // remove graphic
                 if (!player.isAlive()) {
-                    gameRunning = false;
-                    handleGameOver();
+                    gameRunning = false; // End the game if player is not alive
+                    std::cout << "Total Points: " << burger.getTotalPoints() << std::endl;
                 }
                 continue;
             }
@@ -133,28 +77,51 @@ void Game::checkAllCollisions() {
     }
 }
 
-// Renders the game window and all objects
+// renders all of the objects/windows graphics 
 void Game::render() {
-    window.clear(sf::Color(197, 234, 250));  // Clear the screen
+    window.clear(sf::Color(197, 234, 250));
 
-    // Render falling objects
-    for (const auto& item : fallingItems) {
+    // Render falling items
+    for (auto& item : fallingItems) {
         item->render(window);
     }
 
     player.render(window);
     burger.render(window, player.getPlayerPosition(), player);
-    window.display();  // Display the updated window
+    window.display();
 }
 
-// Handles the game over condition
-void Game::handleGameOver() {
-    std::cout << "Game Over! Final score: " << score.getCurrentScore() << std::endl;
-    resetGame();  // Reset the game after game over
-}
+// spawns food items food and objects 
+void Game::spawnFallingObjects() {
+    // Generate random X position within window width
+    float randomX = static_cast<float>(rand() % window.getSize().x);
+    
+    // Randomly select a food type to spawn
+    int randomSpawnType = rand() % 10;
 
-// Resets the game state after game over
-void Game::resetGame() {
-    fallingItems.clear();  // Clear all falling objects
-    gameRunning = false;
+    FallingObjects* newItem = nullptr;
+    if (randomSpawnType == 0) {
+        newItem = new Lettuce();
+    } else if (randomSpawnType == 1) {
+        newItem = new Tomato();
+    } else if (randomSpawnType == 2) {
+        newItem = new Patty();
+    } else if (randomSpawnType == 3) {
+        newItem = new Cheese();
+    } else if (randomSpawnType == 4) {
+        newItem = new Onion();
+    } else if (randomSpawnType == 5) {
+        newItem = new Bomb();
+    } else if (randomSpawnType == 6) {
+        newItem = new Sock();
+    } else if (randomSpawnType == 7) {
+        newItem = new BananaPeel();
+    } else if (randomSpawnType == 8) {
+        newItem = new GoldenIngredient();
+    } else {
+        newItem = new PoisonBottle();
+    }
+
+    newItem->setPosition(sf::Vector2f(randomX, 0.0f));
+    fallingItems.push_back(newItem); // Adds the new item to the vector
 }

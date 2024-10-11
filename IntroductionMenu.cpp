@@ -46,7 +46,7 @@ void IntroductionMenu::renderMenu(sf::RenderWindow &window) {
     instructions.setPosition(window.getSize().x / 2 - instructions.getGlobalBounds().width / 2, 150);
     window.draw(instructions);
 
-    window.display();
+    window.display(); 
 }
 
 // Handle input and detect any key press

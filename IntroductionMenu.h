@@ -19,4 +19,4 @@ public:
     bool handleInput(sf::RenderWindow &window); // Handle key press to continue
 };
 
-#endif
+#endif 

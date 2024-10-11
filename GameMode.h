@@ -4,7 +4,7 @@
 #include <string>
 
 class Game;  // Forward declaration of the Game class
-
+ 
 class GameMode {
 private:
     std::string modeName;  // Stores the current game mode (e.g., "easy", "default", "hard")

@@ -4,7 +4,7 @@
 // Constructor initializes the default game mode and sets appropriate parameters
 GameMode::GameMode(const std::string& modeName) : modeName(modeName) {
     setGameMode(modeName);  // Apply settings based on the mode
-}
+} 
 
 // Sets the game mode and adjusts the fall speed and hazard spawn rate accordingly
 void GameMode::setGameMode(const std::string& mode) {
