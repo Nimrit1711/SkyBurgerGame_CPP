@@ -4,71 +4,61 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <vector>
+#include <cstdlib> 
+#include <iostream> 
+#include <ctime>   
 #include "Player.h"
-#include "Burger.h"
-#include "GameMode.h"
 #include "Score.h"
+#include "FoodItem.h"
 #include "FallingObjects.h"
-#include "Lettuce.h"      
-#include "Tomato.h"       
-#include "Cheese.h"       
-#include "Onion.h"        
-#include "Patty.h"        
-#include "BananaPeel.h"   
-#include "Bomb.h"         
-#include "PoisonBottle.h" 
-#include "Sock.h"         
+#include "Burger.h"
+#include "Lettuce.h"
+#include "Tomato.h"
+#include "Onion.h"
+#include "Patty.h"
+#include "Cheese.h"
+#include "Hazards.h"
+#include "PoisonBottle.h"
+#include "GoldenIngredient.h"
+#include "Bomb.h"
+#include "BananaPeel.h"
+#include "Sock.h"
+#include "GameMode.h"
+using namespace sf;
+using namespace std;
 
 class Game {
 public:
-    // Constructor to initialize the game
-    Game();
+    Game(GameMode::Difficulty selectedDifficulty, RenderWindow& existingWindow);
+    void run(); // Main game loop
+    ~Game();
+    bool isGameOver() const;
+    int getCurrentScore() const;
+    const Score& getScore() const;
 
-    // Runs the main game loop
-    void run();
-
-    // Setters for hazard spawn rate and falling speed multiplier
-    void setHazardSpawnRate(int rate);
-    void setFallSpeedMultiplier(int multiplier);
 
 private:
-    // Initializes game components
-    void initialize();
-
-    // Processes player inputs and window events
-    void handleInput();
-
-    // Updates the game logic
+    GameMode* gameMode; // pointer to the GameMode selection
+    void processEvents();
     void update(float deltaTime);
-
-    // Renders game objects
     void render();
+    void spawnFallingObjects(bool isHazard);
+    
 
-    // Spawns new falling objects (food or hazards)
-    void spawnObjects();
+    Score score;
+    RenderWindow& window;
+    Player player;
+    Burger burger;
+    vector<FallingObjects*> fallingItems; //lists of falling items 
 
-    // Checks for collisions between player, food, and hazards
-    void checkAllCollisions();
-
-    // Handles the game-over condition
-    void handleGameOver();
-
-    // Resets the game state after game over
-    void resetGame();
-
-    sf::RenderWindow window;                  // The game window
-    Player player;                            // Player object
-    Burger burger;                            // Burger object
-    GameMode gameMode;                        // Current game mode
-    Score score;                              // Tracks player's score
-    sf::Clock clock;                          // SFML clock for tracking time
-    std::vector<std::unique_ptr<FallingObjects>> fallingItems; // List of falling objects
-    float spawnTimer;                         // Timer for spawning objects
-    bool gameRunning;                         // Game running status
-
-    // Private members controlled via setters
-    int hazardSpawnRate;                      // Hazard spawn rate based on game mode
-    int fallSpeedMultiplier;                  // Fall speed multiplier based on game mode
+    float spawnTimer;  // timer for food 
+    float hazardSpawnTimer; // timer for hazards
+    float spawnInterval;
+    const float cameraMoveSpeed;
+    bool gameRunning; // checks if game is running/player is alive
+    const float halfWindowHeight; // half window size for camera control
+    bool isHazard; //checks if falling object is hazard or foodItem
+    
 };
 
-#endif // GAME_H
+#endif 

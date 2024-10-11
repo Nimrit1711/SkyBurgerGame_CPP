@@ -14,7 +14,6 @@ Player::Player(Burger* burger)
 }
 
 
-
 //handles keyboard input from player
 void Player::handleInput(RenderWindow& window) {
     float speedMultiplier=1.0f;

@@ -4,7 +4,7 @@
 using namespace std;
 
 // Constructor for Settings Menu
-SettingsMenu::SettingsMenu() : currentSelection(1), selectionConfirmed(false) {  // Default to "Default" option
+SettingsMenu::SettingsMenu() : currentSelection(1), selectionConfirmed(false), backToIntro(false) {  // Default to "Default" option
     if (!menuFont.loadFromFile("arial.ttf")) {
         cout<<"text not loaded!"<<endl;
     }
@@ -70,6 +70,10 @@ void SettingsMenu::handleInput(sf::RenderWindow &window) {
 
                 // Set the selectionConfirmed flag to true
                 selectionConfirmed = true;
+            } 
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                backToIntro = true;
+                selectionConfirmed = false; 
             }
         }
     }
@@ -120,4 +124,9 @@ SettingsMenu::Difficulty SettingsMenu::getConfirmedDifficulty() {
 // Check if the selection has been confirmed (used for exiting the menu)
 bool SettingsMenu::isSelectionConfirmed() {
     return selectionConfirmed;
+}
+
+// returns true 
+bool SettingsMenu::isGoingBackToIntro() const {
+    return backToIntro;
 }

@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Score.h"
-#include "Fooditem.h"
+#include "FoodItem.h"
 
 // Dummy Player and Burger classes to match the function signatures
 class Player {};

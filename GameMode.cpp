@@ -1,49 +1,43 @@
 #include "GameMode.h"
-#include "Game.h"
 
-// Constructor initializes the default game mode and sets appropriate parameters
-GameMode::GameMode(const std::string& modeName) : modeName(modeName) {
-    setGameMode(modeName);  // Apply settings based on the mode
+// Constructor that sets the game mode and initializes parameters
+GameMode::GameMode(Difficulty mode) {
+    setGameMode(mode);
 }
 
-// Sets the game mode and adjusts the fall speed and hazard spawn rate accordingly
-void GameMode::setGameMode(const std::string& mode) {
-    modeName = mode;
-
-    // Set the parameters based on the selected game mode
-    if (modeName == "easy") {
-        fallSpeedMultiplier = 1;  // Slow falling objects
-        hazardSpawnRate = 3;      // Less frequent hazard spawns
-    } 
-    else if (modeName == "hard") {
-        fallSpeedMultiplier = 3;  // Faster falling objects
-        hazardSpawnRate = 1;      // Frequent hazard spawns
-    } 
-    else {
-        modeName = "default";     // Default mode
-        fallSpeedMultiplier = 2;  // Medium speed falling objects
-        hazardSpawnRate = 2;      // Medium hazard spawns
-    }
+// getter for falling speed
+float GameMode::getFallingSpeed() const {
+    return fallingSpeed;
 }
 
-// Applies the game mode to the game, adjusting spawn rate and falling speed
-void GameMode::applyMode(Game& game) {
-    // Use setters to modify the game state
-    game.setHazardSpawnRate(hazardSpawnRate);
-    game.setFallSpeedMultiplier(fallSpeedMultiplier);
+// getter for spawn rate
+float GameMode::getSpawnRate() const {
+    return spawnRate;
 }
 
-// Returns the fall speed multiplier based on the current game mode
-int GameMode::getFallSpeedMultiplier() const {
-    return fallSpeedMultiplier;
-}
-
-// Returns the hazard spawn rate based on the current game mode
-int GameMode::getHazardSpawnRate() const {
+// getter for hazard spawn rate
+float GameMode::getHazardSpawnRate() const {
     return hazardSpawnRate;
 }
 
-// Returns the current game mode as a string
-std::string GameMode::getGameMode() const {
-    return modeName;
+// setting the gamemode:
+void GameMode::setGameMode(Difficulty mode) {
+    switch (mode) {
+        // if mode is easy:
+        case Difficulty::Easy:
+            fallingSpeed = 180.0f; // Lower falling speed
+            spawnRate = 1.0f;       // food Spawns every 1 seconds
+            hazardSpawnRate = 3.0f; // hazard spawns every 3 seconds
+            break;
+        case Difficulty::Normal:
+            fallingSpeed = 200.0f; // Normal falling speed
+            spawnRate = 1.0f;       // food Spawns every 1 second
+            hazardSpawnRate = 2.0f; // hazard spawns every 2 seconds
+            break;
+        case Difficulty::Hard:
+            fallingSpeed = 220.0f; // faster falling speed
+            spawnRate = 1.0f;      // food Spawns every 1 second
+            hazardSpawnRate = 0.5f; // hazard spawns every 0.5 seconds
+            break;       
+    }
 }
