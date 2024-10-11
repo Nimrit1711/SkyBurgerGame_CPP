@@ -22,6 +22,7 @@
 #include "Bomb.h"
 #include "BananaPeel.h"
 #include "Sock.h"
+#include "GameMode.h"
 using namespace sf;
 using namespace std;
 
@@ -29,8 +30,10 @@ class Game {
 public:
     Game();
     void run(); // Main game loop
+    ~Game();
 
 private:
+    GameMode* gameMode; // pointer to the GameMode selection
     void processEvents();
     void update(float deltaTime);
     void render();
@@ -45,6 +48,7 @@ private:
     float spawnInterval;
     const float cameraMoveSpeed;
     bool gameRunning; // checks if game is running/player is alive
+    const float halfWindowHeight; // half window size for camera control
 };
 
 #endif 

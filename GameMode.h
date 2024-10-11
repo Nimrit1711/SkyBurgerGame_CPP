@@ -3,32 +3,29 @@
 
 #include <string>
 
-class Game;  // Forward declaration of the Game class
- 
 class GameMode {
-private:
-    std::string modeName;  // Stores the current game mode (e.g., "easy", "default", "hard")
-    int fallSpeedMultiplier;  // Multiplier to increase the speed of falling objects
-    int hazardSpawnRate;      // Controls how frequently hazards spawn
-
 public:
-    // Constructor to initialize the game mode
-    GameMode(const std::string& modeName = "default");
+    // Difficulties modes choices:
+    enum class Difficulty {
+        Easy,
+        Normal,
+        Hard        
+    };
 
-    // Sets the game mode (easy, default, hard) and adjusts the settings accordingly
-    void setGameMode(const std::string& mode);
+    GameMode(Difficulty mode);
 
-    // Applies the game mode to the game by adjusting spawn rate and falling speed
-    void applyMode(Game& game);
+    // getters for game parameters
+    float getFallingSpeed() const;
+    float getSpawnRate() const;
+    float getHazardSpawnRate() const;
 
-    // Returns the fall speed multiplier based on the current game mode
-    int getFallSpeedMultiplier() const;
+    // Method to set parameters based on selected difficulty
+    void setGameMode(Difficulty mode);
 
-    // Returns the hazard spawn rate based on the current game mode
-    int getHazardSpawnRate() const;
-
-    // Returns the current game mode as a string
-    std::string getGameMode() const;
+private:
+    float fallingSpeed;
+    float spawnRate;
+    float hazardSpawnRate;
 };
 
-#endif // GAMEMODE_H
+#endif

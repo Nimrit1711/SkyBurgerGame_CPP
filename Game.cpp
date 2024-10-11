@@ -4,12 +4,14 @@
 #include <ctime>
 
 Game::Game() : window(sf::VideoMode(900, 800), "Sky Burger Game"),
-               player(&burger),
-               spawnTimer(0.0f),
-               spawnInterval(0.5f), 
-               cameraMoveSpeed(1.0f),
-               gameRunning(true) {
-    srand(static_cast<unsigned int>(time(0))); // Seed random number generator
+               player(&burger), spawnTimer(0.0f), spawnInterval(0.5f), cameraMoveSpeed(1.0f),
+               gameRunning(true), halfWindowHeight(window.getSize().y / 2) {
+                srand(static_cast<unsigned int>(time(0)));
+                gameMode = new GameMode(GameMode::Difficulty::Easy); // Seed random number generator
+}
+
+Game::~Game() {
+    delete gameMode;
 }
 
 //runs the main game loop 
@@ -41,6 +43,8 @@ void Game::processEvents() {
 
 // handles players input, position and the rest of the games mechanics 
 void Game::update(float deltaTime) {
+    float spawnInterval = gameMode->getSpawnRate();
+    float fallingSpeed = gameMode->getFallingSpeed();
     player.handleInput(window);
     player.update(deltaTime, window);
 
@@ -51,30 +55,44 @@ void Game::update(float deltaTime) {
         spawnFallingObjects();
     }
 
-    // Update falling items and check for collisions
-    for (auto it = fallingItems.begin(); it != fallingItems.end();) {
-        (*it)->update(deltaTime);
-        if (auto foodItem = dynamic_cast<FoodItem*>(*it)) {
-            foodItem->checkCollision(player, burger);
-            if (foodItem->getIsCaught()) {
-                it = fallingItems.erase(it);
-                continue;
-            }
-        } else if (auto hazard = dynamic_cast<Hazards*>(*it)) {
-            hazard->checkCollision(player, burger);
-            if (hazard->getIsCaught()) {
-                player.loseLife();
-                delete *it; // delete the dynamically allocated object
-                it = fallingItems.erase(it); // remove graphic
-                if (!player.isAlive()) {
-                    gameRunning = false; // End the game if player is not alive
-                    std::cout << "Total Points: " << burger.getTotalPoints() << std::endl;
+    for (auto it = fallingItems.begin(); it != fallingItems.end(); ) { 
+            (*it)->update(deltaTime);
+            if (auto foodItem = dynamic_cast<FoodItem*>(*it)) { // if its a food item
+                foodItem->checkCollision(player, burger);
+                if (foodItem->getIsCaught()) {
+                    it = fallingItems.erase(it);
+                    continue;
                 }
-                continue;
+            } else if (auto hazard = dynamic_cast<Hazards*>(*it)) { // if object is a hazard
+                hazard->checkCollision(player, burger);
+                if (hazard->getIsCaught()) {
+                    if (auto poisonBottle = dynamic_cast<PoisonBottle*>(hazard)) { // checks if its the poison bottle
+                        poisonBottle->applyPoisonEffect(player);
+                        //burger.startFlashing(0.03f);
+                    } else {
+                        player.loseLife();    //if its the other hazards, lose a life. 
+                    }
+                    //burger.startFlashing(1.f);
+                    delete *it; // delete the dynamically allocated object                  
+                    it = fallingItems.erase(it); // removes graphic
+                    if (!player.isAlive()){  // if player is not alive. end the game
+                        gameRunning = false;
+                        std::cout<<"Total Points: "<<burger.getTotalPoints()<<std::endl;
+                    }
+                    continue;
+                }
             }
+            ++it;        
         }
-        ++it;
-    }
+
+     // camera logic.
+        float topOfStackY = burger.getTopOfStack(player.getPlayerPosition()).y;
+    
+        // If the stack is above halfway the window height, the burger pile moves down
+        if (topOfStackY < halfWindowHeight) {
+            player.setPosition(Vector2f(player.getPlayerPosition().x, player.getPlayerPosition().y + cameraMoveSpeed));
+            burger.moveDown(cameraMoveSpeed); 
+        }
 }
 
 // renders all of the objects/windows graphics 

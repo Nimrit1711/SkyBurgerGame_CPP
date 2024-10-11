@@ -128,7 +128,7 @@ int main() {
             }
             ++it;        
         }
-        //burger.updateFlash();
+        
          // camera logic.
         float topOfStackY = burger.getTopOfStack(player.getPlayerPosition()).y;
     
