@@ -114,9 +114,3 @@ void Player::checkPoisonEffect() {
         }
     }
 }
-
-void Player::playerReset() {
-    lives = 3;  // Reset lives
-    position = Vector2f(400.0f, 700.0f); 
-    setPosition(Vector2f(position));  
-}

@@ -6,8 +6,31 @@
 Game::Game(GameMode::Difficulty selectedDifficulty, RenderWindow& existingWindow) : window(existingWindow),
                player(&burger), spawnTimer(0.0f), spawnInterval(0.5f),hazardSpawnTimer(0.0f), cameraMoveSpeed(1.0f),
                gameRunning(true), isHazard(false), halfWindowHeight(window.getSize().y / 2) {
+
                 srand(static_cast<unsigned int>(time(0)));
                 gameMode = new GameMode(selectedDifficulty); // Seed random number generator
+                
+                if (!gameFont.loadFromFile("arial.ttf")) {
+                        cout<<"failed to load game font"<<endl;
+                }
+
+                //sets lives text
+                livesText.setFont(gameFont);
+                livesText.setCharacterSize(24);
+                livesText.setFillColor(Color::Red);
+                livesText.setPosition(10, 10);  // Position on the top left corner
+
+                 //sets Total score text
+                scoreText.setFont(gameFont);
+                scoreText.setCharacterSize(24);
+                scoreText.setFillColor(Color::Green);
+                scoreText.setPosition(10, 34);  
+
+                // Sets the initial number of lives 
+                updateLivesDisplay();
+                updateScoreDisplay();
+
+
 }
 
 Game::~Game() {
@@ -78,7 +101,7 @@ void Game::update(float deltaTime) {
                 if (hazard->getIsCaught()) {
                     if (auto poisonBottle = dynamic_cast<PoisonBottle*>(hazard)) { // checks if its the poison bottle
                         poisonBottle->applyPoisonEffect(player);
-                        //burger.startFlashing(0.03f);
+                        
                     } else {
                         player.loseLife();    //if its the other hazards, lose a life. 
                     }
@@ -93,12 +116,8 @@ void Game::update(float deltaTime) {
                             while (window.isOpen()) {
                                 gameOverMenu.handleInput(window);
                                 gameOverMenu.renderMenu(window);
-
-                                if (gameOverMenu.getConfirmedOption()==GameOverMenu::EXIT){
-                                    
+                                if (gameOverMenu.getConfirmedOption()==GameOverMenu::EXIT){                                  
                                 }
-                             
-                                
                             }
                             break;
                             std::cout<<"Total Points: "<<burger.getTotalPoints()<<std::endl;                        
@@ -111,7 +130,6 @@ void Game::update(float deltaTime) {
 
      // camera logic.
         float topOfStackY = burger.getTopOfStack(player.getPlayerPosition()).y;
-    
         // If the stack is above halfway the window height, the burger pile moves down
         if (topOfStackY < halfWindowHeight) {
             player.setPosition(Vector2f(player.getPlayerPosition().x, player.getPlayerPosition().y + cameraMoveSpeed));
@@ -122,25 +140,31 @@ void Game::update(float deltaTime) {
 // renders all of the objects/windows graphics 
 void Game::render() {
     window.clear(Color(197, 234, 250));
-
     // Render falling items
     for (auto& item : fallingItems) {
         item->render(window);
     }
-
     player.render(window);
     burger.render(window, player.getPlayerPosition(), player);
+
+    if (player.getLives()<3) {
+             updateLivesDisplay();    // Update the lives on screen
+    }
+
+    if (burger.getTotalPoints()>0){
+        updateScoreDisplay(); // update score on screen
+    }
+
+    window.draw(livesText);
+    window.draw(scoreText);
     window.display();
-    
 }
 
 // spawns food items food and objects 
 void Game::spawnFallingObjects(bool isHazard) {
     // Generate random X position within window width
     float randomX = static_cast<float>(rand() % window.getSize().x);
-    
      FallingObjects* newItem = nullptr;
-    
     // If spawning a hazard
     if (isHazard) {
         int randomHazardType = rand() % 3; // Adjust this based on how many hazards you have
@@ -173,7 +197,6 @@ void Game::spawnFallingObjects(bool isHazard) {
 
 }
 
-
 bool Game::isGameOver() const {
     return !gameRunning;  // If gameRunning is false, the game is over
 }
@@ -195,18 +218,13 @@ void Game::handleGameOver() {
     }
 }
 
-void Game::resetGame() {
-    // Reset all game-related variables to their initial state
-    player.playerReset();  // Assuming you have a reset method for the player
-    burger.burgerReset();  // Clear the burger stack
-    score.scoreReset();   // Reset the score and lives
-    gameRunning = true;  // Set gameRunning to true to restart the game
-    spawnTimer = 0.0f;
-    hazardSpawnTimer = 0.0f;
+void Game::updateLivesDisplay() {
+    // Updates the lives text 
+    int lives = player.getLives();
+    livesText.setString("Lives: " + std::to_string(lives));
+}
 
-    // Deallocate any falling items from the previous game
-    for (auto& item : fallingItems) {
-        delete item;
-    }
-    fallingItems.clear();
+void Game::updateScoreDisplay() {
+    int score= burger.getTotalPoints();  
+    scoreText.setString("Score: " + std::to_string(score));
 }

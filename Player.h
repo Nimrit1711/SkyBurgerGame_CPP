@@ -14,17 +14,16 @@ private:
     Burger* burger;
     int lives;
     float velocityX; 
-    bool isMovingRight; 
+    bool isMovingRight; // checks if player is moving right for input control
     float speed;
-    bool isBound;
-    bool isPoisoned;
+    bool isBound; // checks if player is within the window bounds
+    bool isPoisoned; // checks if the player has been hit with poision bottle
     float poisonDuration;
     Clock poisonTimer;  // Timer to track poison duration 
     
 
 public:
     Player(Burger* burger);
-    //~Player();
     void handleInput(RenderWindow& window);
     void update(float deltaTime, RenderWindow& window);
     void render(RenderWindow& window);
@@ -35,11 +34,9 @@ public:
     Vector2f getPlayerPosition();
     void checkBounds(const RenderWindow& window);     
     void setPosition(const Vector2f& newPosition);
-    //void setSpeed(float speed);
-    //float getSpeed();
-    void applyPoison(float duration);
-    void checkPoisonEffect();
-    void playerReset();
+    void applyPoison(float duration); // affects players speed
+    void checkPoisonEffect(); // checks if posion is over
+    
 };
 
 #endif 

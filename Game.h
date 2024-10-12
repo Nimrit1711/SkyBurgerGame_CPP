@@ -1,6 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
-
+// this is the main game loop
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <vector>
@@ -38,6 +38,8 @@ public:
     const Score& getScore() const;
     void handleGameOver();
     void resetGame();
+    void updateLivesDisplay(); // updates lives text
+    void updateScoreDisplay(); // updates score test on screen
 
 
 private:
@@ -50,6 +52,9 @@ private:
 
     Score score;
     RenderWindow& window;
+    Text livesText; // text to display current lives
+    Font gameFont;
+    Text scoreText;
     Player player;
     Burger burger;
     vector<FallingObjects*> fallingItems; //lists of falling items 
