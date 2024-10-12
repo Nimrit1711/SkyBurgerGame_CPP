@@ -22,11 +22,11 @@ void Player::handleInput(RenderWindow& window) {
     }    
     
     if (Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        velocityX =-0.7*speedMultiplier; //move by 5 pixels
+        velocityX =-1.0*speedMultiplier; //move by 5 pixels
         isMovingRight=false;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        velocityX  =0.7*speedMultiplier; //move by 5 pixels
+        velocityX  =1.0*speedMultiplier; //move by 5 pixels
         isMovingRight=true;
     }  
 
