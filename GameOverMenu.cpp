@@ -2,7 +2,7 @@
 #include <iostream>
 
 // Constructor for Game Over Menu
-GameOverMenu::GameOverMenu() : currentSelection(0), isGameOver(false) {
+GameOverMenu::GameOverMenu(int currentScore, int highestScore) : currentSelection(0), isGameOver(false) {
     if (!menuFont.loadFromFile("arial.ttf")) {
         cout << "Font not loaded!" << endl;
     }
@@ -12,6 +12,7 @@ GameOverMenu::GameOverMenu() : currentSelection(0), isGameOver(false) {
     title.setString("Game Over");
     title.setCharacterSize(50);
     title.setFillColor(Color::White);
+    title.setPosition(300, 200);
 
     // Add menu options
     menuOptions = {"Restart", "Exit"};
@@ -20,11 +21,16 @@ GameOverMenu::GameOverMenu() : currentSelection(0), isGameOver(false) {
     scoreText.setFont(menuFont);
     scoreText.setCharacterSize(30);
     scoreText.setFillColor(Color::White);
+    scoreText.setString("Current Score: " + std::to_string(currentScore));
+    scoreText.setPosition(300, 300);
 
     bestScoreText.setFont(menuFont);
     bestScoreText.setCharacterSize(30);
     bestScoreText.setFillColor(Color::White);
+    bestScoreText.setString("Highest Score: " + std::to_string(highestScore));
+    bestScoreText.setPosition(300, 350); 
 }
+
 
 // Handle input for navigating the game over menu
 void GameOverMenu::handleInput(RenderWindow &window) {
@@ -71,23 +77,16 @@ void GameOverMenu::handleInput(RenderWindow &window) {
 }
 
 // Render the game over menu
-void GameOverMenu:: renderMenu(RenderWindow &window, const Score& score) {
+    void GameOverMenu:: renderMenu(RenderWindow& window) {
     window.clear();
 
     // Render the title (centered at the top)
-    title.setPosition(window.getSize().x / 2 - title.getGlobalBounds().width / 2, 50);
+    //title.setPosition(window.getSize().x / 2 - title.getGlobalBounds().width / 2, 50);
     window.draw(title);
-
-    // Render the current score
-    scoreText.setString("Score: " + std::to_string(score.getCurrentScore()));
-    scoreText.setPosition(350, 150);
-    window.draw(scoreText);
-
-    // Render the best score
-    bestScoreText.setString("Best: " + std::to_string(score.getHighestScore()));
-    bestScoreText.setPosition(350, 200);
+    window.draw(scoreText);    
     window.draw(bestScoreText);
-
+    window.display();
+    /*
     // Render the menu options
     for (size_t i = 0; i < menuOptions.size(); ++i) {
         Text menuItem;
@@ -108,9 +107,9 @@ void GameOverMenu:: renderMenu(RenderWindow &window, const Score& score) {
         // Set position of the menu items
         menuItem.setPosition(window.getSize().x / 2 - menuItem.getGlobalBounds().width / 2, 300 + i * 60);
         window.draw(menuItem);
-    }
+        */   
 
-    window.display();
+    
 }
 
 // Return the selected option
@@ -126,4 +125,7 @@ void GameOverMenu:: reset() {
 void GameOverMenu::setGameOver(bool state) {
     isGameOver = state; // Set the game over state
 }
+
+
+
 

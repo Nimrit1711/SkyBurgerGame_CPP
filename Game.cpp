@@ -82,13 +82,20 @@ void Game::update(float deltaTime) {
                     } else {
                         player.loseLife();    //if its the other hazards, lose a life. 
                     }
-                    //burger.startFlashing(1.f);
+                    
                     delete *it; // delete the dynamically allocated object                  
                     it = fallingItems.erase(it); // removes graphic
                     
                     if (!player.isAlive()){  // if player is not alive. end the game
-                        gameRunning = false;
-                        std::cout<<"Total Points: "<<burger.getTotalPoints()<<std::endl;
+                        GameOverMenu gameOverMenu(burger.getTotalPoints(), score.getHighestScore());
+                        gameOverMenu.renderMenu(window);
+                            while (window.isOpen()) {
+                                gameOverMenu.handleInput(window);
+                                gameOverMenu.renderMenu(window);
+                                
+                            }
+                            break;
+                            std::cout<<"Total Points: "<<burger.getTotalPoints()<<std::endl;                        
                     }
                     continue;
                 }
@@ -151,9 +158,7 @@ void Game::spawnFallingObjects(bool isHazard) {
             newItem = new Onion();
         } else {
             newItem = new GoldenIngredient();
-        }
-            
-        
+        }   
     }
 
     newItem->setPosition(Vector2f(randomX, 0.0f));
@@ -173,3 +178,12 @@ int Game:: getCurrentScore() const {
 const Score& Game::getScore() const {
      return score; 
      }
+
+void Game::handleGameOver() {
+    GameOverMenu gameOverMenu(getCurrentScore(), score.getHighestScore()); // Assuming you have a method in Score to get highest score
+
+    while (window.isOpen()) {
+        gameOverMenu.handleInput(window);
+        gameOverMenu.renderMenu(window);
+    }
+}

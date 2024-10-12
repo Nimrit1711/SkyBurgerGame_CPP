@@ -24,6 +24,7 @@
 #include "BananaPeel.h"
 #include "Sock.h"
 #include "GameMode.h"
+#include "GameOverMenu.h"
 using namespace sf;
 using namespace std;
 
@@ -35,6 +36,7 @@ public:
     bool isGameOver() const;
     int getCurrentScore() const;
     const Score& getScore() const;
+    void handleGameOver();
 
 
 private:

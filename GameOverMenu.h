@@ -24,12 +24,15 @@ private:
     Option selectedOption;  // Stores the confirmed option
 
 public:
-    GameOverMenu();
+   
+    GameOverMenu(int currentScore, int highestScore);
+    void renderMenu(sf::RenderWindow& window);
     void handleInput(RenderWindow &window);  // Handles user input 
-    void renderMenu(RenderWindow &window, const Score& score);  // Renders menu
+    //void renderMenu(RenderWindow &window, const Score& score);  // Renders menu
     Option getConfirmedOption() const;  // Return the confirmed option
     void reset();
     void setGameOver(bool state);
+    Text getTitle();
 
 };
 
