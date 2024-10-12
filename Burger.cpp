@@ -95,3 +95,7 @@ void Burger::updateFlash() {
     }
 }
 
+void Burger::burgerReset() {
+    burgerPile.clear();  // Clear the burger stack
+}
+

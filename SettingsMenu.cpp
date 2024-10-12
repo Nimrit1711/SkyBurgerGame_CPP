@@ -15,7 +15,7 @@ SettingsMenu::SettingsMenu() : currentSelection(1), selectionConfirmed(false), b
     title.setCharacterSize(50);
     title.setFillColor(sf::Color::White);
 
-    // Add difficulty options
+    // Add difficulty options 
     menuOptions = {"Easy", "Default", "Hard"};
 
     // Set up the prompt to continue

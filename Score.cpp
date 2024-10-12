@@ -17,7 +17,11 @@ void Score::updateScore(const Burger &burger, SettingsMenu::Difficulty mode) {
         case SettingsMenu::HARD:
             scoreHard += burger.getTotalPoints();
             break;
-    }
+    } 
+}
+
+void Score:: updateScoreN(const Burger &burger){
+    currentScore+= burger.getTotalPoints();
 }
 
 // Update the highest score based on the current difficulty
@@ -72,4 +76,9 @@ void Score::resetScore(SettingsMenu::Difficulty mode) {
             scoreHard = 0;
             break;
     }
+}
+
+
+void Score:: scoreReset(){
+    currentScore=0;
 }

@@ -37,6 +37,7 @@ public:
     int getCurrentScore() const;
     const Score& getScore() const;
     void handleGameOver();
+    void resetGame();
 
 
 private:

@@ -9,7 +9,8 @@ private:
     int scoreEasy;         // Score for EASY mode
     int scoreDefault;      // Score for DEFAULT mode
     int scoreHard;         // Score for HARD mode
-    int highestScore;      // Tracks the highest score overall
+    int highestScore; 
+    int currentScore;     // Tracks the highest score overall
 
 public:
     // Constructor
@@ -27,8 +28,13 @@ public:
     // Get the highest score across all difficulties
     int getHighestScore() const;
 
+    void scoreReset();
+    void updateScoreN(const Burger &burger);
+
     // Reset the current score for the selected difficulty
     void resetScore(SettingsMenu::Difficulty mode);
+
+
 };
 
 #endif

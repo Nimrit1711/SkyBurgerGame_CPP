@@ -39,6 +39,7 @@ public:
     //float getSpeed();
     void applyPoison(float duration);
     void checkPoisonEffect();
+    void playerReset();
 };
 
 #endif 

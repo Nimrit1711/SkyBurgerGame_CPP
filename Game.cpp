@@ -87,11 +87,17 @@ void Game::update(float deltaTime) {
                     it = fallingItems.erase(it); // removes graphic
                     
                     if (!player.isAlive()){  // if player is not alive. end the game
+                        gameRunning=false;
                         GameOverMenu gameOverMenu(burger.getTotalPoints(), score.getHighestScore());
                         gameOverMenu.renderMenu(window);
                             while (window.isOpen()) {
                                 gameOverMenu.handleInput(window);
                                 gameOverMenu.renderMenu(window);
+
+                                if (gameOverMenu.getConfirmedOption()==GameOverMenu::EXIT){
+                                    
+                                }
+                             
                                 
                             }
                             break;
@@ -125,6 +131,7 @@ void Game::render() {
     player.render(window);
     burger.render(window, player.getPlayerPosition(), player);
     window.display();
+    
 }
 
 // spawns food items food and objects 
@@ -181,9 +188,25 @@ const Score& Game::getScore() const {
 
 void Game::handleGameOver() {
     GameOverMenu gameOverMenu(getCurrentScore(), score.getHighestScore()); // Assuming you have a method in Score to get highest score
-
+    
     while (window.isOpen()) {
         gameOverMenu.handleInput(window);
         gameOverMenu.renderMenu(window);
     }
+}
+
+void Game::resetGame() {
+    // Reset all game-related variables to their initial state
+    player.playerReset();  // Assuming you have a reset method for the player
+    burger.burgerReset();  // Clear the burger stack
+    score.scoreReset();   // Reset the score and lives
+    gameRunning = true;  // Set gameRunning to true to restart the game
+    spawnTimer = 0.0f;
+    hazardSpawnTimer = 0.0f;
+
+    // Deallocate any falling items from the previous game
+    for (auto& item : fallingItems) {
+        delete item;
+    }
+    fallingItems.clear();
 }

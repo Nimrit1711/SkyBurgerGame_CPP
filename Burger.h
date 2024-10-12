@@ -30,6 +30,7 @@ public:
     void moveDown(float distance);
     void startFlashing(float duration); 
     void updateFlash();
+    void burgerReset();
     
 };
 

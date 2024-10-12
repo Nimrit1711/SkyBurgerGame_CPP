@@ -28,6 +28,6 @@ public:
     bool backToIntro; // going back to this menu 
     bool isGoingBackToIntro() const; // to dectect if player want to go back
 };
-
+ 
 #endif
 
