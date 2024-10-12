@@ -9,10 +9,10 @@ LDFLAGS = -L/opt/homebrew/opt/sfml/lib -lsfml-graphics -lsfml-window -lsfml-syst
 
 # Source files
 SRCS = BananaPeel.cpp Bomb.cpp Burger.cpp Cheese.cpp FallingObjects.cpp \
-       FallingObjectSpawnTest.cpp FoodItem.cpp Game.cpp \
-       GameMode.cpp Hazards.cpp HazardsSpawnTest.cpp IntroductionMenu.cpp \
-       Lettuce.cpp main.cpp maintest.cpp Onion.cpp Patty.cpp PauseMenu.cpp \
-       Player.cpp PlayerTest.cpp PoisonBottle.cpp Score.cpp SettingsMenu.cpp \
+       FoodItem.cpp Game.cpp GoldenIngredient.cpp GameOverMenu.cpp \
+       GameMode.cpp Hazards.cpp IntroductionMenu.cpp \
+       Lettuce.cpp main.cpp Onion.cpp Patty.cpp \
+       Player.cpp PoisonBottle.cpp Score.cpp SettingsMenu.cpp \
        Sock.cpp Tomato.cpp
 
 # Object files
