@@ -11,7 +11,7 @@ using namespace sf;
 
 class GameOverMenu {
 public:
-    enum Option { EXIT };  // Game over options
+   enum Option { EXIT };  // Game over options
 
 private:
     int currentSelection;  // Tracks which menu option is selected

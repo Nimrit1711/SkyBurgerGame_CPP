@@ -40,6 +40,7 @@ public:
     void resetGame();
     void updateLivesDisplay(); // updates lives text
     void updateScoreDisplay(); // updates score test on screen
+    bool getIsGameOver();
 
 
 private:
@@ -66,7 +67,8 @@ private:
     bool gameRunning; // checks if game is running/player is alive
     const float halfWindowHeight; // half window size for camera control
     bool isHazard; //checks if falling object is hazard or foodItem
-    
+    bool gameIsOver;
+
 };
 
 #endif 

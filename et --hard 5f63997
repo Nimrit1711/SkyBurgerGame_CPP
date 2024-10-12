@@ -1,0 +1,52 @@
+[33ma8aae66[m[33m ([m[1;36mHEAD -> [m[1;32mSkyBurger[m[33m, [m[1;31morigin/SkyBurger[m[33m)[m HEAD@{0}: pull (finish): returning to refs/heads/SkyBurger
+[33ma8aae66[m[33m ([m[1;36mHEAD -> [m[1;32mSkyBurger[m[33m, [m[1;31morigin/SkyBurger[m[33m)[m HEAD@{1}: pull (pick): added text to game to display score and lives
+[33ma980dc9[m HEAD@{2}: pull (start): checkout a980dc91fbdab2834e23c290d7ac0888f951c699
+[33m5f63997[m HEAD@{3}: commit: added text to game to display score and lives
+[33mf7e41f8[m HEAD@{4}: commit: changed players speed IM DONE
+[33me60e2c5[m HEAD@{5}: commit: changed to only Exit for GameOVer
+[33m17b1a95[m HEAD@{6}: pull (finish): returning to refs/heads/SkyBurger
+[33m17b1a95[m HEAD@{7}: pull (pick): added gameOverMenu class
+[33m40bca90[m HEAD@{8}: pull (start): checkout 40bca90f386213a5ba9c6caafab85e460f35e7f1
+[33mb2ca6fa[m HEAD@{9}: commit: added gameOverMenu class
+[33mb3d58b9[m HEAD@{10}: commit: updated main file and integrated settings and intro
+[33m83a8855[m HEAD@{11}: commit: successfully tested gameMode class
+[33mc02abef[m HEAD@{12}: commit: added gameMode class and updated Game.cpp
+[33mf1204e6[m HEAD@{13}: commit: updated the Game Class and tested it
+[33mcc72ef5[m HEAD@{14}: reset: moving to HEAD
+[33mcc72ef5[m HEAD@{15}: commit: added golden ingredient to game class
+[33mf744557[m HEAD@{16}: commit: updated and checked all of the menu windows
+[33m57b3a03[m HEAD@{17}: commit: fixed PauseMenu and commenented out isGamePause()
+[33m8f4a85f[m HEAD@{18}: pull origin SkyBurger (finish): returning to refs/heads/SkyBurger
+[33m8f4a85f[m HEAD@{19}: pull origin SkyBurger (pick): added golden ingredient. and fixed collision check
+[33m2f5dff1[m HEAD@{20}: pull origin SkyBurger (start): checkout 2f5dff1f541e6c7fa4f052c7c02ad9b5fe2d972c
+[33m5d557ac[m HEAD@{21}: reset: moving to HEAD
+[33m5d557ac[m HEAD@{22}: pull --no-rebase origin SkyBurger: Merge made by the 'ort' strategy.
+[33m05a733c[m HEAD@{23}: commit: added golden ingredient. and fixed collision check
+[33m6e39bf8[m HEAD@{24}: commit (merge): pulling
+[33mb221bb6[m HEAD@{25}: commit: added golden ingredient
+[33me143693[m HEAD@{26}: commit: space function in menu, and remvoed toggle score
+[33m8b7ba73[m HEAD@{27}: commit (merge): details
+[33m2145e9c[m HEAD@{28}: commit: small details
+[33m64d0f26[m HEAD@{29}: commit: fixed flashing animation
+[33m07e0bcf[m HEAD@{30}: commit: used create and delete for the rubric
+[33m8dfdef1[m HEAD@{31}: commit: changed window and speed ratio
+[33m81a2ace[m HEAD@{32}: commit: fixed hazard collison checker so that it only counts if it touches the top of the stack
+[33m230f5f6[m HEAD@{33}: commit: tyring to do the flashing animation
+[33m839ebc2[m HEAD@{34}: commit: added a poisonbottle class that slows player down
+[33m0568f94[m HEAD@{35}: commit: hazard collision control
+[33m537cfc9[m HEAD@{36}: commit: changed the sprites to rectangles. hazard collion detection too
+[33m7d481d9[m HEAD@{37}: commit: added the hazards class. testing if the game ends once player has no lives remamining
+[33m6b4cd4e[m HEAD@{38}: commit: moving the burger pile down
+[33m6ed7ccd[m HEAD@{39}: commit: centering the burger pile onto the player
+[33m9e204b8[m HEAD@{40}: commit: using pull. just making sure everything is up to date
+[33md2592f0[m HEAD@{41}: commit: fixed the stack rendering by adding virtual functions to ingreidents class
+[33m9f7194b[m HEAD@{42}: commit: updated check collision functions and created burger stack
+[33m8515842[m HEAD@{43}: commit: second commit. randomly generating falling objects
+[33mfb32aba[m HEAD@{44}: commit: fixed header decleration. first falling object test
+[33m830fb1b[m HEAD@{45}: commit (merge): merged files and first commit of falling objects
+[33ma2a293d[m HEAD@{46}: commit: first commit
+[33m1c85b0a[m HEAD@{47}: commit: moving burger bun
+[33mb78542a[m HEAD@{48}: commit: update
+[33ma2449f7[m HEAD@{49}: checkout: moving from main to SkyBurger
+[33mbe5e0a1[m[33m ([m[1;32mmain[m[33m)[m HEAD@{50}: reset: moving to HEAD
+[33mbe5e0a1[m[33m ([m[1;32mmain[m[33m)[m HEAD@{51}: clone: from https://github.com/a1922041/SKYBURGER.git

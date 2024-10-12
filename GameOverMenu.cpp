@@ -3,31 +3,24 @@
 
 // Constructor for Game Over Menu
 GameOverMenu::GameOverMenu(int currentScore, int highestScore) : isGameOver(false) {
-    if (!menuFont.loadFromFile("arial.ttf")) {
+    if (!menuFont.loadFromFile("SuperWater.ttf")) {
         cout << "Font not loaded!" << endl;
     }
 
     // Set up the title
     title.setFont(menuFont);
     title.setString("Game Over");
-    title.setCharacterSize(50);
-    title.setFillColor(Color::White);
-    title.setPosition(350, 200);
+    title.setCharacterSize(80);
+    title.setFillColor(Color(203, 67, 48));
+    title.setPosition(300, 200);
 
     
-     // Set up score and best score texts
+     // Set up score text
     scoreText.setFont(menuFont);
-    scoreText.setCharacterSize(30);
+    scoreText.setCharacterSize(50);
     scoreText.setFillColor(Color::White);
-    scoreText.setString("Current Score: " + std::to_string(currentScore));
-    scoreText.setPosition(350, 300);
-
-    
-    bestScoreText.setFont(menuFont);
-    bestScoreText.setCharacterSize(30);
-    bestScoreText.setFillColor(Color::White);
-    bestScoreText.setString("Highest Score: " + std::to_string(highestScore));
-    bestScoreText.setPosition(350, 350); 
+    scoreText.setString("Total Score: " + std::to_string(currentScore));
+    scoreText.setPosition(300, 300);
 
     selectedOption=EXIT;
 }
@@ -48,25 +41,10 @@ void GameOverMenu::handleInput(sf::RenderWindow &window) {
 }
 
 // Render the game over menu
-    void GameOverMenu:: renderMenu(RenderWindow& window) {
-        
-    window.clear();
-
-    // Render the title    
+void GameOverMenu:: renderMenu(RenderWindow& window) {  
+    window.clear(Color(197,234,250));    
     window.draw(title);
-    window.draw(scoreText);    
-    window.draw(bestScoreText);
-    float yOffset = bestScoreText.getPosition().y + bestScoreText.getGlobalBounds().height + 50; // get position
-    
-    Text menuItem;
-    menuItem.setFont(menuFont);
-    menuItem.setString("Exit");
-    menuItem.setCharacterSize(40);
-    menuItem.setFillColor(Color::White);
-    
-    // Set position of the menu items
-    menuItem.setPosition(window.getSize().x / 2 - menuItem.getGlobalBounds().width / 2, bestScoreText.getPosition().y + 100);
-    window.draw(menuItem);        
+    window.draw(scoreText);          
     window.display();
 }
 
@@ -75,6 +53,8 @@ void GameOverMenu::handleInput(sf::RenderWindow &window) {
 GameOverMenu::Option GameOverMenu::getConfirmedOption() const {
     return selectedOption;  // Return the confirmed option stored in the class
 }
+
+
 
 
 

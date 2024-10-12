@@ -5,26 +5,26 @@
 
 Game::Game(GameMode::Difficulty selectedDifficulty, RenderWindow& existingWindow) : window(existingWindow),
                player(&burger), spawnTimer(0.0f), spawnInterval(0.5f),hazardSpawnTimer(0.0f), cameraMoveSpeed(1.0f),
-               gameRunning(true), isHazard(false), halfWindowHeight(window.getSize().y / 2) {
+               gameRunning(true), isHazard(false), halfWindowHeight(window.getSize().y / 2),gameIsOver(false) {
 
                 srand(static_cast<unsigned int>(time(0)));
                 gameMode = new GameMode(selectedDifficulty); // Seed random number generator
                 
-                if (!gameFont.loadFromFile("arial.ttf")) {
+                if (!gameFont.loadFromFile("SuperWater.ttf")) {
                         cout<<"failed to load game font"<<endl;
                 }
 
                 //sets lives text
                 livesText.setFont(gameFont);
                 livesText.setCharacterSize(24);
-                livesText.setFillColor(Color::Red);
+                livesText.setFillColor(Color(203, 67, 48));
                 livesText.setPosition(10, 10);  // Position on the top left corner
 
                  //sets Total score text
                 scoreText.setFont(gameFont);
                 scoreText.setCharacterSize(24);
-                scoreText.setFillColor(Color::Green);
-                scoreText.setPosition(10, 34);  
+                scoreText.setFillColor(Color(203, 67, 48));
+                scoreText.setPosition(10, 40);  
 
                 // Sets the initial number of lives 
                 updateLivesDisplay();
@@ -56,9 +56,9 @@ void Game::run() {
 
 // handles if window is still open
 void Game::processEvents() {
-    sf::Event event;
+    Event event;
     while (window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
+        if (event.type == Event::Closed) {
             window.close();
         }
     }
@@ -116,7 +116,8 @@ void Game::update(float deltaTime) {
                             while (window.isOpen()) {
                                 gameOverMenu.handleInput(window);
                                 gameOverMenu.renderMenu(window);
-                                if (gameOverMenu.getConfirmedOption()==GameOverMenu::EXIT){                                  
+                                if (gameOverMenu.getConfirmedOption()==GameOverMenu::EXIT){  
+                                    gameIsOver=true;                                
                                 }
                             }
                             break;
@@ -215,6 +216,8 @@ void Game::handleGameOver() {
     while (window.isOpen()) {
         gameOverMenu.handleInput(window);
         gameOverMenu.renderMenu(window);
+       
+       
     }
 }
 
@@ -228,3 +231,8 @@ void Game::updateScoreDisplay() {
     int score= burger.getTotalPoints();  
     scoreText.setString("Score: " + std::to_string(score));
 }
+
+
+ bool Game:: getIsGameOver(){
+    return gameIsOver;
+ }

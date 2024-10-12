@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
+using namespace std;
+using namespace sf;
 
 class SettingsMenu {
 public:
@@ -12,10 +14,11 @@ public:
 private:
     int currentSelection;  // Track which difficulty is selected
     Difficulty selectedDifficulty;  // Store the confirmed difficulty
-    std::vector<std::string> menuOptions;  // The list of difficulty options
-    sf::Text title;  // Title for the settings menu
-    sf::Font menuFont;  // Font for the text
-    sf::Text prompt;  // Text prompt to continue
+    vector<string> menuOptions;  // The list of difficulty options
+    Text title;  // Title menu
+    Font titleFont;
+    Font menuFont;  
+    Text prompt;  // Text prompt
     bool selectionConfirmed;  // Whether the selection is confirmed
     
 

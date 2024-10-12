@@ -12,7 +12,7 @@ IntroductionMenu::IntroductionMenu() {
         cout<<"text not loaded!"<<endl;
     }
 
-    // Set up the title
+    // Set up the title 
     title.setFont(titleFont);
     title.setString("Sky Burger"); //only the title uses the title font
     title.setCharacterSize(50);
@@ -21,17 +21,26 @@ IntroductionMenu::IntroductionMenu() {
     // Set up the instructions 
     instructions.setFont(menuFont);
     instructions.setString(
+        
+        "In Sky Burger, you take on the role of a master burger builder!\n"
+        "Your goal is to catch delicious falling ingredients while avoiding hazardous objects.\n\n"
         "How to Play:\n"
-        "1. Collect freefalling ingredients from the sky to build your burger.\n"
-        "   One point per ingredient. Golden ingredients give an extra point.\n\n"
-        "2. Each game gives the player three health points. Collect non-edible\n"
-        "   ingredients, and lose one health point.\n\n"
-        "3. Once all three health points are lost, the game ends.\n"
-        "4. If the player collects a poison bottle, speed decreases. No lives will be lost \n"
-        "Press space to continue"
+        "1. Catch the Ingredients:\n"
+        "   - Lettuce, Tomatoes, Cheese, and Patties fall from above.\n"
+        "     Catch them to build your burger and score points!\n\n"
+        "2. Beware of Hazards:\n"
+        "   - Poison Bottles: These won't take away your lives, but will slow you down!\n"
+        "   - Bombs, Socks, Banana peels: Colliding with them will cost you a life. Stay alert!\n\n"
+        "3. Collect the Golden Coins:\n"
+        "   - These special coins are worth 50 additional points!\n\n"
+        "4. Game Modes:\n"
+        "   - Normal Mode: Standard gameplay with regular ingredient and hazard spawn rates.\n"
+        "   - Hard Mode: Increased hazards for a greater challenge.\n"
+        "   - Freeplay Mode: Enjoy the game without worrying about lives!\n\n"
+        "Are you ready to build the biggest burger ever? Press SPACE to start the game!"
     );
-    instructions.setCharacterSize(24);  // Smaller size for instructions
-    instructions.setFillColor(sf::Color(255,140,0));
+    instructions.setCharacterSize(20);  // Smaller size for instructions
+    instructions.setFillColor(sf::Color(243, 181, 53));
 }
 
 // Render the introduction screen

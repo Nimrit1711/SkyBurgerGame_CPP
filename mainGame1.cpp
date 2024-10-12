@@ -60,7 +60,9 @@ int main() {
 
                 // Start game
                 Game game(selectedGameMode,window);
-                game.run();
+               
+                    game.run();
+                              
                 break;  // Exit after the game ends
             }
         }
