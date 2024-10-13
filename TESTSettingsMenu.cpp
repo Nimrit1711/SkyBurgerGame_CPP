@@ -1,3 +1,5 @@
+//Tests the menu that changes difficulty
+
 #include <SFML/Graphics.hpp>
 #include "SettingsMenu.h"
 #include <iostream>

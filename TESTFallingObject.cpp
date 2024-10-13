@@ -1,3 +1,5 @@
+//Test to see how the objects "fall" from the top of the window
+
 // compile: g++ FallingObjectTest.cpp Player.cpp Burger.cpp FoodItem.cpp Lettuce.cpp -lsfml-graphics -lsfml-window -lsfml-system
 #include <SFML/Graphics.hpp>
 #include <memory>
@@ -54,7 +56,7 @@ int main() {
         // Render graphics
         window.clear(Color(135,206, 235));
         
-        burger.render(window, player.getPlayerPosition()); 
+        burger.render(window, player.getPlayerPosition(), player); 
         for (auto& foodItem : foodItems) {
             foodItem->render(window);
         } 

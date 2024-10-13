@@ -3,6 +3,7 @@
         "cstdlib": "cpp",
         "iostream": "cpp",
         "ctime": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "memory": "cpp"
     }
 }

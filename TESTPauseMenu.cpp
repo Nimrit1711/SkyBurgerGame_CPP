@@ -1,3 +1,6 @@
+//Tests the pause menu
+//Not needed anymore
+
 #include <SFML/Graphics.hpp>
 #include "PauseMenu.h"
 #include <iostream>

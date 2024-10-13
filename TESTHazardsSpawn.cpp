@@ -1,3 +1,5 @@
+//Test to see how and how frequent the hazards spawn
+
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <vector>

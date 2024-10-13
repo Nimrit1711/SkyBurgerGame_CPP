@@ -1,3 +1,5 @@
+//Test to see the frequency at which objects appear on the window
+
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <vector>

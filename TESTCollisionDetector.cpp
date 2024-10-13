@@ -1,3 +1,5 @@
+//Tests the collision detector
+
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <vector>

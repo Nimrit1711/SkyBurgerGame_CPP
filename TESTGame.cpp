@@ -1,6 +1,24 @@
+//Tests the game source and header files
+
+// tester file  for the Game Class 
+//compile code: g++ GameTester.cpp Player.cpp Burger.cpp FoodItem.cpp
+//Lettuce.cpp Tomato.cpp Onion.cpp Patty.cpp Cheese.cpp Hazards.cpp Bomb.cpp PoisonBottle.cpp 
+//GoldenIngredient.cpp BananaPeel.cpp Sock.cpp Game.cpp -lsfml-graphics -lsfml-window -lsfml-system
+
+
 #include <iostream>
 #include "Game.h"
 #include <SFML/Graphics.hpp>
+
+/*
+int main() {
+    Game game;
+    game.run();
+    return 0;
+}
+*/
+
+
 
 // Simulate missing methods in the test file
 

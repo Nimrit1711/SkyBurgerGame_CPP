@@ -1,3 +1,5 @@
+//tests the introduction menu
+
 #include <SFML/Graphics.hpp>
 #include "IntroductionMenu.h"
 
