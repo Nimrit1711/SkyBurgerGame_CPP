@@ -2,7 +2,7 @@
 #include <iostream>
 
 PoisonBottle::PoisonBottle() 
-    : Hazards("poisonBottle.png", 140.f), poisonEffectDuration(5.0f) { 
+    : Hazards("assets/images/poisonBottle.png", 140.f), poisonEffectDuration(5.0f) { 
     hazardSprite.setScale(0.2f, 0.2f);
     
 }

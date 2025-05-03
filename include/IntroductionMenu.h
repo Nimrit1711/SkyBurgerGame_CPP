@@ -8,10 +8,12 @@
 
 class IntroductionMenu {
 private:
-    sf::Text title;        // Title of the game
-    sf::Text instructions; // Instructions for the user
-    sf::Font menuFont;     // Font for the text
-    sf::Font titleFont;     // Font for the text
+    sf::Text title;        
+    sf::Text instructions; 
+    sf::Font menuFont;     
+    sf::Font titleFont;   
+    
+  
     
 public:
     IntroductionMenu();

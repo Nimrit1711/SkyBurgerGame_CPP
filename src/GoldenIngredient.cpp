@@ -4,7 +4,7 @@
 
 GoldenIngredient::GoldenIngredient() : FoodItem(50, 220.f) {
     
-    if (!goldenTexture.loadFromFile("goldCoin.png")){
+    if (!goldenTexture.loadFromFile("assets/images/goldCoin.png")){
             std::cout<<"file not loaded"<<endl;
         }
         foodShape.setTexture(&goldenTexture);

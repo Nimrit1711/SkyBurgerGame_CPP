@@ -3,7 +3,7 @@
 
 Player::Player(Burger* burger)
     : burger(burger), lives(3), velocityX(0.9f), poisonDuration(0) {
-    if (!playerTexture.loadFromFile("file.png")) {
+    if (!playerTexture.loadFromFile("assets/images/file.png")) {
       cout<<"player not loaded"<<endl;
     }            
     sprite.setTexture(playerTexture);   

@@ -59,6 +59,8 @@ private:
     Player player;
     Burger burger;
     vector<FallingObjects*> fallingItems; //lists of falling items 
+    sf::Texture skyTexture;
+    sf::Sprite skySprite;
 
     float spawnTimer;  // timer for food 
     float hazardSpawnTimer; // timer for hazards

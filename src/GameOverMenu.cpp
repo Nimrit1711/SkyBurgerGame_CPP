@@ -3,7 +3,7 @@
 
 // Constructor for Game Over Menu
 GameOverMenu::GameOverMenu(int currentScore, int highestScore) : isGameOver(false) {
-    if (!menuFont.loadFromFile("SuperWater.ttf")) {
+    if (!menuFont.loadFromFile("assets/fonts/SuperWater.ttf")) {
         cout << "Font not loaded!" << endl;
     }
 

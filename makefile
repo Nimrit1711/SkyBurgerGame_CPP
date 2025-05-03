@@ -1,34 +1,38 @@
 # Compiler
 CXX = g++
+CXXFLAGS = -std=c++17 -Wall -Iinclude
 
-# Compiler flags
-CXXFLAGS = -I/opt/homebrew/opt/sfml/include -std=c++17
+# Linker flags (update if you're using WSL, SFML installed via apt)
+LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
-# Linker flags
-LDFLAGS = -L/opt/homebrew/opt/sfml/lib -lsfml-graphics -lsfml-window -lsfml-system
+# Directories
+SRC_DIR = src
+BUILD_DIR = build
+INCLUDE_DIR = include
 
-# Source files
-SRCS = BananaPeel.cpp Bomb.cpp Burger.cpp Cheese.cpp FallingObjects.cpp \
-       FoodItem.cpp Game.cpp GoldenIngredient.cpp GameOverMenu.cpp \
-       GameMode.cpp Hazards.cpp IntroductionMenu.cpp \
-       Lettuce.cpp main.cpp Onion.cpp Patty.cpp \
-       Player.cpp PoisonBottle.cpp Score.cpp SettingsMenu.cpp \
-       Sock.cpp Tomato.cpp
+# Find all source files in src/
+SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+# Replace src/*.cpp with build/*.o for object files
+OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
 
-# Object files
-OBJS = $(SRCS:.cpp=.o)
-
-# Executable name
+# Output binary
 EXEC = game
 
-# Rule to link the executable
-$(EXEC): $(OBJS)
-	$(CXX) $(OBJS) $(LDFLAGS) -o $(EXEC)
+# Default target
+all: $(EXEC)
 
-# Rule to compile source files into object files
-%.o: %.cpp
+# Link object files into the final executable
+$(EXEC): $(OBJS)
+	$(CXX) $(OBJS) -o $@ $(LDFLAGS)
+
+# Compile each source file into an object file inside build/
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp | $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Clean rule to remove object files and the executable
+# Create the build directory if it doesn't exist
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
+# Clean rule
 clean:
-	rm -f $(OBJS) $(EXEC)
+	rm -rf $(BUILD_DIR) $(EXEC)

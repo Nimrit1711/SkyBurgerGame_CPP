@@ -22,6 +22,7 @@ private:
     Text bestScoreText;
     bool isGameOver;  
     Option selectedOption;  // Stores the confirmed option
+    
 
 public:
    
@@ -32,6 +33,7 @@ public:
     void reset();
     void setGameOver(bool state);
     Text getTitle();
+  
 };
 
 #endif

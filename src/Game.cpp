@@ -10,15 +10,26 @@ Game::Game(GameMode::Difficulty selectedDifficulty, RenderWindow& existingWindow
                 srand(static_cast<unsigned int>(time(0)));
                 gameMode = new GameMode(selectedDifficulty); // Seed random number generator
                 
-                if (!gameFont.loadFromFile("SuperWater.ttf")) {
+                if (!gameFont.loadFromFile("assets/fonts/SuperWater.ttf")) {
                         cout<<"failed to load game font"<<endl;
                 }
 
-                //sets lives text
+                if (!skyTexture.loadFromFile("assets/images/skyBackground.jpg")) {
+                    std::cout << "Failed to load sky background image!" << std::endl;
+                    
+                } else {
+                    skySprite.setTexture(skyTexture);
+            
+                    float scaleX = static_cast<float>(window.getSize().x) / skyTexture.getSize().x;
+                    float scaleY = static_cast<float>(window.getSize().y) / skyTexture.getSize().y;
+                    skySprite.setScale(scaleX, scaleY);
+                }
+
+             
                 livesText.setFont(gameFont);
                 livesText.setCharacterSize(24);
                 livesText.setFillColor(Color(203, 67, 48));
-                livesText.setPosition(10, 10);  // Position on the top left corner
+                livesText.setPosition(10, 10);  
 
                  //sets Total score text
                 scoreText.setFont(gameFont);
@@ -138,9 +149,11 @@ void Game::update(float deltaTime) {
         }
 }
 
-// renders all of the objects/windows graphics 
+
 void Game::render() {
-    window.clear(Color(197, 234, 250));
+    window.clear();  
+    window.draw(skySprite);  
+
     // Render falling items
     for (auto& item : fallingItems) {
         item->render(window);

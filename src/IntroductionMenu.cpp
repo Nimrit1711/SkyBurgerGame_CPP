@@ -1,22 +1,24 @@
 #include "IntroductionMenu.h"
 #include <iostream>
+#include <SFML/Graphics/VertexArray.hpp>
 using namespace std;
 
 // Constructor for Introduction Menu
 IntroductionMenu::IntroductionMenu() {
-    if (!titleFont.loadFromFile("SuperWater.ttf")) {
+    if (!titleFont.loadFromFile("assets/fonts/SuperWater.ttf")) {
         cout<<"text not loaded!"<<endl;
     }
 
-    if (!menuFont.loadFromFile("arial.ttf")) {
+    if (!menuFont.loadFromFile("assets/fonts/arial.ttf")) {
         cout<<"text not loaded!"<<endl;
     }
+    
 
     // Set up the title 
     title.setFont(titleFont);
-    title.setString("Sky Burger"); //only the title uses the title font
-    title.setCharacterSize(50);
-    title.setFillColor(sf::Color(255,165,0));
+    title.setString("Sky Burger"); 
+    title.setCharacterSize(64);
+    title.setFillColor(sf::Color(255, 140, 0));
 
     // Set up the instructions 
     instructions.setFont(menuFont);
@@ -39,22 +41,46 @@ IntroductionMenu::IntroductionMenu() {
         "   - Freeplay Mode: Enjoy the game without worrying about lives!\n\n"
         "Are you ready to build the biggest burger ever? Press SPACE to start the game!"
     );
-    instructions.setCharacterSize(20);  // Smaller size for instructions
-    instructions.setFillColor(sf::Color(243, 181, 53));
+    instructions.setCharacterSize(20);  
+    instructions.setFillColor(sf::Color(255, 255, 255));
+    
 }
 
 // Render the introduction screen
 void IntroductionMenu::renderMenu(sf::RenderWindow &window) {
-    window.clear(sf::Color(197,234,250));
+    sf::VertexArray skyGradient(sf::Quads, 4);
 
-    // Position and render the title (centered at the top)
-    title.setPosition(window.getSize().x / 2 - title.getGlobalBounds().width / 2, 50);
+    sf::Color topColor(197, 234, 250);   
+    sf::Color bottomColor(170, 215, 240); 
+
+    float width = window.getSize().x;
+    float height = window.getSize().y;
+
+    skyGradient[0].position = sf::Vector2f(0, 0);
+    skyGradient[1].position = sf::Vector2f(width, 0);
+    skyGradient[2].position = sf::Vector2f(width, height);
+    skyGradient[3].position = sf::Vector2f(0, height);
+
+    skyGradient[0].color = topColor;
+    skyGradient[1].color = topColor;
+    skyGradient[2].color = bottomColor;
+    skyGradient[3].color = bottomColor;
+
+
+    window.draw(skyGradient);
+
+   
+    title.setPosition(window.getSize().x / 2 - title.getGlobalBounds().width / 2, 40);
     window.draw(title);
 
-    // Position and render the instructions (centered below the title)
+   
     instructions.setPosition(window.getSize().x / 2 - instructions.getGlobalBounds().width / 2, 150);
+    sf::Text shadow = instructions;
+    shadow.setFillColor(sf::Color( 0, 0, 8)); 
+    shadow.setPosition(instructions.getPosition().x + 1, instructions.getPosition().y + 1);
+    window.draw(shadow);
     window.draw(instructions);
-
+    
     window.display(); 
 }
 
@@ -63,7 +89,7 @@ bool IntroductionMenu::handleInput(sf::RenderWindow &window) {
     sf::Event event;
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
-            window.close();  // Close the window if requested
+            window.close();  // Close the window 
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
             return true;  // Return true if space is pressed

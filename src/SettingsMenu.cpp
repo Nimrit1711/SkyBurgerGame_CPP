@@ -4,11 +4,11 @@
 
 // Constructor for Settings Menu
 SettingsMenu::SettingsMenu() : currentSelection(1), selectionConfirmed(false), backToIntro(false) {  // Default to "Default" option
-    if (!menuFont.loadFromFile("arial.ttf")) {
+    if (!menuFont.loadFromFile("assets/images/arial.ttf")) {
         cout<<"text not loaded!"<<endl;
     }
 
-    if (!titleFont.loadFromFile("SuperWater.ttf")) {
+    if (!titleFont.loadFromFile("assets/fonts/SuperWater.ttf")) {
         cout<<"text not loaded!"<<endl;
     }
 
